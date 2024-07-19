@@ -20,10 +20,10 @@ const ImageGallery = () => {
     }));
     setImages(tempImages);
   }, []);
-
+  @j!SXzEdk58T
   // Fetch additional data
   useEffect(() => {
-    axios.get('http://localhost:4444/data')
+    axios.get('http://45.90.34.238:4444/data')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
