@@ -1,0 +1,72 @@
+/* Основной стиль */
+.header-title {
+    position: relative;
+    color: #fff;
+    text-align: center;
+    font-size: 3vw; 
+    background: url('https://bogatyr.club/uploads/posts/2023-03/1678693987_bogatyr-club-p-fon-zapchasti-avto-foni-krasivo-22.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin: 0 auto;
+    width: 75vw; 
+    height: 60vh;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.5s ease, border 0.5s ease;
+}
+
+.header-title::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    transition: background 0.5s ease;
+}
+
+.header-title h1 {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+  
+}
+
+.header-title:hover {
+    border: 2px solid #61dafb;
+    transform: scale(1.05);
+}
+
+.header-title:hover::before {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .header-title {
+  
+        width: 70vw;
+        height: 50vh;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+    .header-title {
+        font-size: 5vw;
+        width: 85vw;
+        height: 45vh;
+    }
+}
+
+/* Для экранов до 480px (например, маленькие телефоны) */
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 5vw;
+        width: 90vw;
+        height: 40vh;
+    }
+
+
+}

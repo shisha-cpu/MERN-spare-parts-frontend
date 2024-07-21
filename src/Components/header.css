@@ -1,3 +1,4 @@
+/* Общие стили */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 * {
@@ -17,11 +18,11 @@ body {
     padding: 20px 40px;
     background-color: #282c34;
     color: white;
-
     width: 100%;
     top: 0;
     z-index: 1000;
     transition: background-color 0.3s ease;
+    position: relative; /* Добавлено для абсолютного позиционирования бургер-меню */
 }
 
 .header.scrolled {
@@ -44,9 +45,12 @@ body {
     }
 }
 
+/* Стили для навигации */
 .navigation ul {
     display: flex;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .navigation li {
@@ -81,4 +85,52 @@ body {
 
 .navigation a:hover::after {
     width: 100%;
+}
+
+/* Стили для бургер-меню */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 2000;
+}
+
+.burger-menu div {
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+/* Стили для навигационного меню в режиме бургер-меню */
+.navigation ul {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: #282c34;
+    width: 100%;
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.navigation ul.show {
+    transform: translateX(0);
+}
+
+/* Медиа-запросы */
+@media (max-width: 768px) {
+    .navigation {
+        display: none;
+    }
+    
+    .burger-menu {
+        display: flex;
+    }
 }

