@@ -4,6 +4,7 @@ import './login.css'; // Подключение файла стилей
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { setUser } from '../store/slices/userSlice';
+import Button from './elements/Button';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -63,7 +64,7 @@ const Login = () => {
                         required
                     />
                 </div>
-                <button type="submit" className="login-button">Войти</button>
+                <button type="submit" className=""><Button text='Войти' /></button>
             </form>
         </div>
     );

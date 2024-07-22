@@ -1,12 +1,12 @@
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box; /* Это помогает избежать проблем с масштабированием, так как учитывает padding и border в ширине и высоте элемента */
+    /* box-sizing: border-box;  */
     font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    background: url('../public/dotally.png') ;
+    /* background: url('../public/dotally.png') ; */
     margin: 0;
 }
 
