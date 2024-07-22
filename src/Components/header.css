@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 * {
     box-sizing: border-box;
@@ -6,9 +5,7 @@
     padding: 0;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-}
+
 
 .header {
     display: flex;
@@ -154,4 +151,14 @@ body {
 
 .merge{
     margin-right: 20svw;
+}
+@media (min-width :1486px ) {
+    .merge{
+        margin-right: 24svw;
+    }
+}
+@media (max-width :1116px ) {
+    .merge{
+        margin-right: 16svw;
+    }
 }

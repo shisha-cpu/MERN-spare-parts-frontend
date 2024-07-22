@@ -70,3 +70,24 @@
 
 
 }
+
+.container-card1{
+
+    height: 300px;
+    width: 600px;
+    top: 60px;
+    left: calc(50% - 300px);
+    display: flex;
+}
+
+.cards-container{
+    display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+.home-btn{
+
+    max-width: 300px;
+    margin:  0 auto;
+}

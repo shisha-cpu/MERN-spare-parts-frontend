@@ -1,0 +1,104 @@
+
+
+.profit-card {
+  perspective: 1000px;
+  margin: 20px;
+  width: 300px; /* Фиксированная ширина */
+  height: 250px;
+  cursor: pointer; /* Указатель курсора */
+}
+
+.profit-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s, box-shadow 0.4s, border 0.4s; /* Добавлены анимации для обводки и тени */
+  transform-style: preserve-3d;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Темная тень */
+  border: 2px solid transparent; /* Начальная прозрачная обводка */
+}
+
+.profit-card:hover .profit-card-inner {
+  transform: rotateY(180deg);
+  box-shadow: 0 8px 16px rgba(0, 255, 255, 0.5); /* Яркая тень при наведении */
+  border: 2px solid rgba(0, 255, 255, 0.8); /* Яркая обводка при наведении */
+}
+
+.profit-card-front, .profit-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  text-align: center;
+  padding: 20px;
+  transition: background-color 0.4s; /* Плавное изменение цвета фона */
+}
+
+.profit-card-front {
+  background: linear-gradient(135deg, #1b1b1b 0%, #2a2a2a 100%); /* Темные кибер цвета */
+  color: #00fff7; /* Светлый текст на темном фоне */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profit-card-back {
+  background: linear-gradient(135deg, #2c2c2c 0%, #3b3b3b 100%); /* Темные кибер цвета */
+  color: #00fff7; /* Светлый текст на темном фоне */
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profit-card-title {
+  font-size: 1.8em; /* Размер шрифта для заголовка */
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.profit-card-content {
+  font-size: 1.1em; /* Размер шрифта для содержимого */
+}
+
+.profit-card-footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9em; /* Размер шрифта для дополнительного текста */
+  color: #999; /* Светло-серый текст */
+}
+
+@media (max-width :1300px ) {
+  
+.profit-card {
+  
+  width: 20svw;
+ 
+}
+}
+@media (max-width :1120px ) {
+  
+  .profit-card {
+    width: 30svw;
+  }
+  .profit-card-title {
+    font-size: 3svw;
+  
+  }
+  }
+
+  @media (min-width :300px ) and (max-width: 700px){
+  
+    .profit-card {
+      width: 70svw;
+    }
+    .profit-card-title {
+      font-size: 7svw;
+    
+    }
+    }
