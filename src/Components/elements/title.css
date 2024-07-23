@@ -1,0 +1,16 @@
+.title-container{
+    margin:  0 auto;
+    width: 40svw;
+    text-align: center;
+}
+.line{
+    height: 2px;
+    background-color: #fff;
+    margin-top: 5px;
+    
+}
+@media (max-width:570px) {
+    .title-container{
+        width: 60svw;
+    }
+}

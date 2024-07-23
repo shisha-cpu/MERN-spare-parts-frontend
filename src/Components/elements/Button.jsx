@@ -4,7 +4,7 @@ import './button.scss'
 export default function Button(props) {
 
     return (
-        <div className="buttons">
+        <div className=" home-btn buttons">
             <button className="blob-btn">
                 {props.text}
                 <span className="blob-btn__inner">
