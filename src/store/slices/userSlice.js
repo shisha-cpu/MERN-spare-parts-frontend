@@ -4,12 +4,14 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: {
         isLoggin: false,
-        userInfo: {}
+        userInfo: {},
+        basket : {}
     },
     reducers: {
         setUser: (state, action) => {
             state.isLoggin = true;
             state.userInfo = action.payload;
+            state.basket = action.payload
         },
         clearUser: (state) => {
             state.isLoggin = false;

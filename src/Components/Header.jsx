@@ -26,7 +26,9 @@ export default function Header() {
         setMenuOpen(!menuOpen);
     };
 
-    console.log(user);
+    const closeMenu = () => {
+        setMenuOpen(false);
+    };
 
     return (
         <header className="header">
@@ -41,20 +43,20 @@ export default function Header() {
             <nav className={`navigation ${menuOpen ? 'open' : ''}`}>
                 <div className="merge">
                     <ul>
-                        <li><Link to='/'>Главная</Link></li>
-                        <li><Link to='/catalog'>Каталог</Link></li>
-                        <li><Link to='/about'>О нас</Link></li>
-                        <li><Link to='/contact'>Контакты</Link></li>
+                        <li><Link to='/' onClick={closeMenu}>Главная</Link></li>
+                        <li><Link to='/catalog' onClick={closeMenu}>Каталог</Link></li>
+                        <li><Link to='/about' onClick={closeMenu}>О нас</Link></li>
+                        <li><Link to='/contact' onClick={closeMenu}>Контакты</Link></li>
                     </ul>
                 </div>
                 <ul>
                     {!user.isLoggin ? (
                         <>
-                            <li><Link to='/register'>Регистрация</Link></li>
-                            <li><Link to='/login'>Вход</Link></li>
+                            <li><Link to='/register' onClick={closeMenu}>Регистрация</Link></li>
+                            <li><Link to='/login' onClick={closeMenu}>Вход</Link></li>
                         </>
                     ) : (
-                        <li>Пользователь: {user.userInfo.username}</li>
+                        <li><Link to='/dashboard' onClick={closeMenu}>Личный кабинет</Link></li>
                     )}
                 </ul>
             </nav>

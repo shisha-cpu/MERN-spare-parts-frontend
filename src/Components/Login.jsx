@@ -17,7 +17,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://45.90.34.238:4444/login', {
+            const response = await axios.post('http://localhost:4444/login', {
                 email,
                 password
             }
@@ -25,7 +25,7 @@ const Login = () => {
 
             localStorage.setItem('token', response.data.token);
             setMessage('Вход выполнен успешно');
-            dispatch(setUser({ email, username: response.data.username }));
+            dispatch(setUser({ email, username: response.data.username ,  }));
             setRedirect(true);
             console.log(response.data);
         } catch (error) {
@@ -64,7 +64,9 @@ const Login = () => {
                         required
                     />
                 </div>
-                <button type="submit" className=""><Button text='Войти' /></button>
+                <button type="submit" className="auth-btn">
+                    <Button text='Войти' />
+                </button>
             </form>
         </div>
     );

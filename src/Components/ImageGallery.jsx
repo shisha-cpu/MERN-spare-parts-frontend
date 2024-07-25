@@ -1,9 +1,9 @@
 // ImageGallery.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import  axios from 'axios';
 import './card.css';
 import { useSelector } from 'react-redux';
-
+import Button from './elements/Button';
 const ImageGallery = () => {
   const [images, setImages] = useState([]);
   const [data, setData] = useState([]);
@@ -20,14 +20,13 @@ const ImageGallery = () => {
     }));
     setImages(tempImages);
   }, []);
-  // Fetch additional data
   useEffect(() => {
-    axios.get('http://45.90.34.238:4444/data')
+    axios.get('http://localhost:4444/data')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
 
-  // Update filtered data when data or search query changes
+
   useEffect(() => {
     const lowercasedQuery = searchQuery.toLowerCase();
     setFilteredData(data.filter(item => {
@@ -50,7 +49,13 @@ const ImageGallery = () => {
       console.error(`Ошибка загрузки изображения: ${image.id}`);
     }
   };
-
+  console.log( user);
+  const handleSubmit = (item)=>{
+    console.log(item);
+    axios.post('http://localhost:4444/add-to-basket' , {product : item, username : user.userInfo.username})
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  } 
   return (
     <div className="container">
       <div className="search-container">
@@ -86,7 +91,9 @@ const ImageGallery = () => {
                   />
                 )}
               </div>
+              {user.userInfo.username ? <Button text='Добавить' func={()=>handleSubmit(item)} /> : ''}
             </div>
+
           </div>
         ))}
       </div>

@@ -1,6 +1,6 @@
 /* Login.css */
 .login-container {
-    max-width: 400px;
+    width: 400px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -39,3 +39,20 @@ h2 {
 }
 
 
+.auth-btn{
+        background: none;
+        border: none;
+        padding: 0;
+        margin:  0 auto;
+        text-align: center;
+        margin-left: 20px;
+}
+@media (max-width: 450px) {
+    .login-container {
+        width: 70svw;
+       
+    }
+    .auth-btn{
+        margin-left: -5svw;
+}
+}

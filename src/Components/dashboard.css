@@ -1,0 +1,42 @@
+.dashboard-container {
+
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+.dashboard-header {
+    text-align: center;
+
+}
+
+.user-basket {
+    margin-top: 20px;
+}
+
+.basket-item {
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+
+}
+
+.basket-item-header {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.basket-item p {
+    margin: 5px 0;
+}
+
+.basket-item hr {
+    border: none;
+    height: 1px;
+    background: #61dafb;
+    margin: 10px 0;
+
+}
+
+

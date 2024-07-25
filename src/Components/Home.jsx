@@ -4,7 +4,7 @@ import Button from "./elements/Button"
 import { Link } from "react-router-dom"
 import Profit from "./elements/Profit"
 import Title from "./elements/Title"
-import photo from '../../public/фотосклада .jpg'
+
 export default function Home(){
 
     const user = useSelector(state => state.user)

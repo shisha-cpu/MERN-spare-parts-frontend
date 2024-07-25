@@ -6,8 +6,9 @@ import Login from './Components/Login';
 import Home from './Components/Home';
 import About from './Components/About';
 import Contact from './Components/Contact';
+import Dashboard from './Components/Dashboard';
 function App() {
-  console.log('sasa-');
+
   return (
     <>
       <Routes>
@@ -17,6 +18,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/dashboard' element={<Dashboard />} />
       </Routes>
       
     </>

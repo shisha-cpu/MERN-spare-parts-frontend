@@ -5,7 +5,7 @@ export default function Button(props) {
 
     return (
         <div className=" home-btn buttons">
-            <button className="blob-btn">
+            <button className="blob-btn" onClick={props.func}>
                 {props.text}
                 <span className="blob-btn__inner">
                     <span className="blob-btn__blobs">

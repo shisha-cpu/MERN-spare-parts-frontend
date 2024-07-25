@@ -21,9 +21,10 @@ const Register = () => {
             setMessage('Пароли не совпадают');
             return;
         }
-
+// http://45.90.34.238:4444/register
+// http://localhost:4444/register
         try {
-            const response = await axios.post('http://45.90.34.238:4444/register', {
+            const response = await axios.post('http://localhost:4444/register', {
                 username,
                 email,
                 password, 
@@ -34,7 +35,7 @@ const Register = () => {
             setMessage(response.data.message);
 
             if (response.data.message === 'User registered successfully') {
-                dispatch(setUser({ username, email , wholesale : false }));
+                dispatch(setUser({ username, email , wholesale : false , basket}));
                 setRedirect(true);
             }
         } catch (error) {
