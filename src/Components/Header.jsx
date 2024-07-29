@@ -33,7 +33,7 @@ export default function Header() {
     return (
         <header className="header">
             <div className="logo">
-                <img src="path-to-your-logo.png" alt="Logo" />
+                <img src="../../public/logo.jpg" alt="Logo" />
             </div>
             <div className={`menu-toggle ${menuOpen ? 'active' : ''}`} onClick={toggleMenu}>
                 <div className="bar"></div>

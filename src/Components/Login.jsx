@@ -15,19 +15,24 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+    
         try {
             const response = await axios.post('http://localhost:4444/login', {
                 email,
                 password
-            }
-        );
-
-            localStorage.setItem('token', response.data.token);
+            });
+    
+            // Получаем данные пользователя из ответа
+            const { username } = response.data;
+    
+            // Сохраняем данные о пользователе в localStorage
+            localStorage.setItem('user', JSON.stringify({ email, username }));
+            
+            // Обновляем состояние в Redux
+            dispatch(setUser({ email, username }));
+             
             setMessage('Вход выполнен успешно');
-            dispatch(setUser({ email, username: response.data.username ,  }));
             setRedirect(true);
-            console.log(response.data);
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
                 setMessage(error.response.data.message);
@@ -36,6 +41,7 @@ const Login = () => {
             }
         }
     };
+    
 
     if (redirect) {
         return <Navigate to="/" />;

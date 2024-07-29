@@ -43,13 +43,13 @@ const ImageGallery = () => {
     setSearchQuery(e.target.value);
   };
 
-  const handleImageError = (image) => {
-    if (!image.triedPng) {
-      image.src = `/фото/${image.id}.png`;
-      image.triedPng = true;
-      setImages([...images]);
+  const handleImageError = (e, id) => {
+    const img = e.target;
+    const newSrc = img.src.endsWith('.jpg') ? `/фото/${id}.png` : '';
+    if (newSrc) {
+      img.src = newSrc;
     } else {
-      console.error(`Ошибка загрузки изображения: ${image.id}`);
+      console.error(`Ошибка загрузки изображения: ${id}`);
     }
   };
 
@@ -82,9 +82,13 @@ const ImageGallery = () => {
               {item.Количество > 5 ? <p>Осталось >5 шт.</p> : <p>Осталось: {item.Количество} шт.</p>}
               <p>Артикул: {item.Артикул}</p>
               {user.userInfo.wholesale ? <p>Оптовая цена: {item.ОПТ}</p> : ''}
-              <p>Розничная цена: {item.РОЗНИЦА}</p>
+              <p>Розничная цена: {item.РОЗНИЦА} рублей </p>
               <div className="img-container">
-                <img src={`../../public/фото/${item.id}.jpg`} alt="" />
+                <img
+                  src={`/фото/${item.id}.jpg`}
+                  alt={`Изображение ${item.id}`}
+                  onError={(e) => handleImageError(e, item.id)}
+                />
               </div>
               {user.userInfo.username ? <Button text='Добавить' func={() => handleSubmit(item)} /> : ''}
             </div>

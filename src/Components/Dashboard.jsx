@@ -74,7 +74,7 @@ export default function Dashboard() {
                         <div style={{ display: 'none' }}>{price += item.РОЗНИЦА}</div>
                     </div>
                 ))}
-                <h3> Итог : {price}</h3>
+                <h3> Итог : {price} рублей</h3>
             </div>
             <Button text='Заказать' func={handleOrder} />
         </div>
