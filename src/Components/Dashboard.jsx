@@ -11,7 +11,7 @@ export default function Dashboard() {
     console.log(user.userInfo.username);
     useEffect(() => {
         if (user.userInfo.username) {
-            axios.get(`http://localhost:4444/user/${user.userInfo.username}/basket`)
+            axios.get(`http://45.90.34.238:4444/user/${user.userInfo.username}/basket`)
                 .then(res => setBasket(res.data))
                 .catch(err => console.log(err));
         }
@@ -46,8 +46,8 @@ export default function Dashboard() {
             });
 
             // Очистка корзины на сервере
-            await axios.post('http://localhost:4444/get-order', { username: user.userInfo.username });
-
+            await axios.post('http://45.90.34.238:4444/get-order', { username: user.userInfo.username });
+            //http://localhost:4444/get-order
             setBasket([]);  // Clear local basket state
             alert('Ваш заказ был успешно отправлен!');
         } catch (error) {

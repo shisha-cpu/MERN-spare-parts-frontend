@@ -23,7 +23,7 @@ const ImageGallery = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:4444/data')
+    axios.get('http://45.90.34.238:4444/data')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
@@ -54,7 +54,7 @@ const ImageGallery = () => {
   };
 
   const handleSubmit = (item) => {
-    axios.post('http://localhost:4444/add-to-basket', { product: item, username: user.userInfo.username })
+    axios.post('http://45.90.34.238:4444/add-to-basket', { product: item, username: user.userInfo.username })
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };

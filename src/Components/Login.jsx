@@ -17,7 +17,7 @@ const Login = () => {
         e.preventDefault();
     
         try {
-            const response = await axios.post('http://localhost:4444/login', {
+            const response = await axios.post('http://45.90.34.238:4444/login', {
                 email,
                 password
             });
