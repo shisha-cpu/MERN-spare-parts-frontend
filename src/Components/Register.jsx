@@ -10,6 +10,7 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [phone, setPhone] = useState('');
     const [message, setMessage] = useState('');
     const [redirect, setRedirect] = useState(false);
     const dispatch = useDispatch();
@@ -21,21 +22,22 @@ const Register = () => {
             setMessage('Пароли не совпадают');
             return;
         }
-// http://45.90.34.238:4444/register
-// http://localhost:4444/register
+
         try {
             const response = await axios.post('http://localhost:4444/register', {
                 username,
                 email,
                 password, 
-                wholesale : false
+                wholesale: false,
+                phone
             });
 
             console.log('Server response:', response.data);
             setMessage(response.data.message);
 
             if (response.data.message === 'User registered successfully') {
-                dispatch(setUser({ username, email , wholesale : false , basket}));
+                const basket = []; // Initialize basket as an empty array
+                dispatch(setUser({ username, email, wholesale: false, basket, phone }));
                 setRedirect(true);
             }
         } catch (error) {
@@ -90,6 +92,15 @@ const Register = () => {
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Телефон:</label>
+                    <input
+                        type='tel'
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                         required
                     />
                 </div>

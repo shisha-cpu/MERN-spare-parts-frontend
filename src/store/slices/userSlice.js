@@ -5,7 +5,8 @@ export const userSlice = createSlice({
     initialState: {
         isLoggin: false,
         userInfo: {},
-        basket : {}
+        basket : {},
+        
     },
     reducers: {
         setUser: (state, action) => {

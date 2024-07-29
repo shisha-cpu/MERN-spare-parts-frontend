@@ -1,15 +1,16 @@
 // ImageGallery.js
 import React, { useState, useEffect } from 'react';
-import  axios from 'axios';
+import axios from 'axios';
 import './card.css';
 import { useSelector } from 'react-redux';
 import Button from './elements/Button';
+
 const ImageGallery = () => {
   const [images, setImages] = useState([]);
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
-  const user = useSelector(state => state.user )
+  const user = useSelector(state => state.user);
 
   // Load images
   useEffect(() => {
@@ -20,19 +21,21 @@ const ImageGallery = () => {
     }));
     setImages(tempImages);
   }, []);
+
   useEffect(() => {
     axios.get('http://localhost:4444/data')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
 
-
   useEffect(() => {
     const lowercasedQuery = searchQuery.toLowerCase();
+    const normalizedQuery = lowercasedQuery.replace(/[^a-z0-9]/g, '');
+
     setFilteredData(data.filter(item => {
-      const article = String(item.Артикул).toLowerCase();
+      const article = String(item.Артикул).toLowerCase().replace(/[^a-z0-9]/g, '');
       const name = String(item.Наименование).toLowerCase();
-      return article.includes(lowercasedQuery) || name.includes(lowercasedQuery);
+      return article.includes(normalizedQuery) || name.includes(lowercasedQuery);
     }));
   }, [data, searchQuery]);
 
@@ -49,13 +52,13 @@ const ImageGallery = () => {
       console.error(`Ошибка загрузки изображения: ${image.id}`);
     }
   };
-  console.log( user);
-  const handleSubmit = (item)=>{
-    console.log(item);
-    axios.post('http://localhost:4444/add-to-basket' , {product : item, username : user.userInfo.username})
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-  } 
+
+  const handleSubmit = (item) => {
+    axios.post('http://localhost:4444/add-to-basket', { product: item, username: user.userInfo.username })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
   return (
     <div className="container">
       <div className="search-container">
@@ -71,29 +74,20 @@ const ImageGallery = () => {
         {filteredData.map((item, index) => (
           <div key={index} className="card">
             <div className="card_content">
-              {/* {index + 1 } */}
               <div className="card_margin">
                 <p className="card_title">{item.Наименование}</p>
               </div>
               <p>Каталог: {item.Каталог}</p>
               <p>Производитель: {item.Производитель}</p>
-              {item.Количество > 5 ?  <p>Осталось >5 шт.</p> : <p>Осталось: {item.Количество} шт.</p>}
+              {item.Количество > 5 ? <p>Осталось >5 шт.</p> : <p>Осталось: {item.Количество} шт.</p>}
               <p>Артикул: {item.Артикул}</p>
-              {user.userInfo.wholesale?   <p>Оптовая цена: {item.ОПТ}</p> : ''}
+              {user.userInfo.wholesale ? <p>Оптовая цена: {item.ОПТ}</p> : ''}
               <p>Розничная цена: {item.РОЗНИЦА}</p>
               <div className="img-container">
-                {images[index] && (
-                  <img
-                    src={images[index].src}
-                    alt={`image-${images[index].id}`}
-                    onError={() => handleImageError(images[index])}
-                    className="card_image"
-                  />
-                )}
+                <img src={`../../public/фото/${item.id}.jpg`} alt="" />
               </div>
-              {user.userInfo.username ? <Button text='Добавить' func={()=>handleSubmit(item)} /> : ''}
+              {user.userInfo.username ? <Button text='Добавить' func={() => handleSubmit(item)} /> : ''}
             </div>
-
           </div>
         ))}
       </div>
