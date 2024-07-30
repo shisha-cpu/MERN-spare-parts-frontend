@@ -11,7 +11,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         if (user.userInfo.username) {
-            axios.get(`http://localhost:4444/user/${user.userInfo.username}/basket`)
+            axios.get(`http://62.113.108.165:4444/user/${user.userInfo.username}/basket`)
                 .then(res => setBasket(res.data))
                 .catch(err => console.log(err));
         }
@@ -44,7 +44,7 @@ export default function Dashboard() {
                 text: message,
             });
 
-            await axios.post('http://localhost:4444/get-order', { username: user.userInfo.username });
+            await axios.post('http://62.113.108.165:4444/get-order', { username: user.userInfo.username });
             alert('Ваш заказ был успешно отправлен!');
             window.location.reload();
         } catch (error) {
@@ -56,7 +56,7 @@ export default function Dashboard() {
     const handleDelete = async (index) => {
         try {
             console.log(index);
-            await axios.delete(`http://localhost:4444/${user.userInfo.username}/basket/${index}`);
+            await axios.delete(`http://62.113.108.165:4444/${user.userInfo.username}/basket/${index}`);
             window.location.reload();
         } catch (error) {
             console.log(error);
