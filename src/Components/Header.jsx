@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './header.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { clearUser } from '../store/slices/userSlice';
 
 export default function Header() {
     const dispatch = useDispatch();
@@ -30,10 +31,15 @@ export default function Header() {
         setMenuOpen(false);
     };
 
+    const handleLogout = () => {
+        dispatch(clearUser());
+        closeMenu();
+    };
+
     return (
         <header className="header">
             <div className="logo">
-                <img src="../../public/logo.jpg" alt="Logo" />
+                <Link to='/' onClick={closeMenu}><img src="../../public/logo.png" alt="Logo" /></Link>
             </div>
             <div className={`menu-toggle ${menuOpen ? 'active' : ''}`} onClick={toggleMenu}>
                 <div className="bar"></div>
@@ -56,7 +62,10 @@ export default function Header() {
                             <li><Link to='/login' onClick={closeMenu}>Вход</Link></li>
                         </>
                     ) : (
-                        <li><Link to='/dashboard' onClick={closeMenu}>Личный кабинет</Link></li>
+                        <>
+                            <li><Link to='/dashboard' onClick={closeMenu}>Личный кабинет</Link></li>
+                            <li><button onClick={handleLogout}>Выйти</button></li>
+                        </>
                     )}
                 </ul>
             </nav>

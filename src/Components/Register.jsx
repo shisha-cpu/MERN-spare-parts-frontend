@@ -24,7 +24,7 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.post('http://45.90.34.238:4444/register', {
+            const response = await axios.post('http://localhost:4444/register', {
                 username,
                 email,
                 password, 
@@ -34,7 +34,7 @@ const Register = () => {
 
             console.log('Server response:', response.data);
             setMessage(response.data.message);
-
+            localStorage.setItem('user', JSON.stringify(userData));
             if (response.data.message === 'User registered successfully') {
                 const basket = []; // Initialize basket as an empty array
                 dispatch(setUser({ username, email, wholesale: false, basket, phone }));

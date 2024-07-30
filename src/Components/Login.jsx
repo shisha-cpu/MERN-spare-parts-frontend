@@ -17,7 +17,7 @@ const Login = () => {
         e.preventDefault();
     
         try {
-            const response = await axios.post('http://45.90.34.238:4444/login', {
+            const response = await axios.post('http://localhost:4444/login', {
                 email,
                 password
             });
@@ -25,8 +25,7 @@ const Login = () => {
             // Получаем данные пользователя из ответа
             const { username } = response.data;
     
-            // Сохраняем данные о пользователе в localStorage
-            localStorage.setItem('user', JSON.stringify({ email, username }));
+    
             
             // Обновляем состояние в Redux
             dispatch(setUser({ email, username }));

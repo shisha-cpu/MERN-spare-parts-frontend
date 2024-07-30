@@ -1,14 +1,16 @@
 .dashboard-container {
-
-    color: #fff;
+    color: #333;
     padding: 20px;
     border-radius: 10px;
-
+    background-color: #f9f9f9;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .dashboard-header {
     text-align: center;
-
+    font-size: 2em;
+    margin-bottom: 20px;
 }
 
 .user-basket {
@@ -19,24 +21,49 @@
     padding: 15px;
     margin: 10px 0;
     border-radius: 5px;
-
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .basket-item-header {
     font-weight: bold;
     font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
 .basket-item p {
     margin: 5px 0;
 }
 
-.basket-item hr {
-    border: none;
-    height: 1px;
-    background: #61dafb;
-    margin: 10px 0;
-
+.basket-content {
+    flex-grow: 1;
 }
 
+.delete-button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
 
+.delete-button:hover {
+    background-color: #c0392b;
+}
+
+.delete-button:focus {
+    outline: none;
+    background-color: #d63028;
+}
+
+h3 {
+    margin-top: 20px;
+    text-align: right;
+    color: #555;
+}
