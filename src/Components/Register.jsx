@@ -34,7 +34,7 @@ const Register = () => {
 
             console.log('Server response:', response.data);
             setMessage(response.data.message);
-            localStorage.setItem('user', JSON.stringify(userData));
+            // localStorage.setItem('user', JSON.stringify(userData));
             if (response.data.message === 'User registered successfully') {
                 const basket = []; // Initialize basket as an empty array
                 dispatch(setUser({ username, email, wholesale: false, basket, phone }));

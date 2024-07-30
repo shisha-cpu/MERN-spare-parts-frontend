@@ -23,7 +23,7 @@ const ImageGallery = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://62.113.108.165:4444/ata')
+    axios.get('http://62.113.108.165:4444/data')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
