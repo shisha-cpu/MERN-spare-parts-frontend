@@ -20,8 +20,11 @@ export default function Dashboard() {
     }, [user.userInfo.username]);
 
     const totalPrice = useMemo(() => {
-        return basket.reduce((sum, item) => sum + (item.product?.РОЗНИЦА || 0) * item.count, 0);
-    }, [basket]);
+        return basket.reduce((sum, item) => {
+            const price = user.userInfo.wholesale ? item.product?.ОПТ : item.product?.РОЗНИЦА;
+            return sum + (price || 0) * item.count;
+        }, 0);
+    }, [basket, user.userInfo.wholesale]);
 
     const handleOrder = async () => {
         const orderDetails = basket.map(item => ({
@@ -94,8 +97,7 @@ export default function Dashboard() {
                                     <p>Каталог: {catalog}</p>
                                     <p>Производитель: {manufacturer}</p>
                                     <p>Артикул: {article}</p>
-                                    {user.userInfo.wholesale && <p>Оптовая цена: {item.ОПТ}</p>}
-                                    <p>Розничная цена: {retailPrice}</p>
+                                    {user.userInfo.wholesale ? <p>Цена: {item.product.ОПТ}</p> : <p>Цена: {retailPrice}</p> }
                                     <p>Количество: {item.count}</p>
                                 </div>
                                 <button className="delete-button" onClick={() => handleDelete(index)}>Удалить</button>

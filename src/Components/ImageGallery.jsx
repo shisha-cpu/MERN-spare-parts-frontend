@@ -86,8 +86,8 @@ const ImageGallery = () => {
                 <p>Производитель: {item.Производитель}</p>
                 {item.Количество > 5 ? <p>Осталось >5 шт.</p> : <p>Осталось: {item.Количество} шт.</p>}
                 <p>Артикул: {item.Артикул}</p>
-                {user.userInfo.wholesale ? <p>Оптовая цена: {item.ОПТ}</p> : ''}
-                <p>Цена: {item.РОЗНИЦА} рублей </p>
+                {user.userInfo.wholesale ? <p>Цена: {item.ОПТ}</p> :  <p>Цена: {item.РОЗНИЦА} рублей </p>}
+              
                 <div className="img-container">
                   <img
                     src={`/фото/${item.id}.jpg`}
