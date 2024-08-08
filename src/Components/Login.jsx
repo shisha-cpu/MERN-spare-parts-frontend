@@ -19,16 +19,17 @@ const Login = () => {
         try {
             const response = await axios.post('http://62.113.108.165:4444/login', {
                 email,
-                password
+                password,
+       
             });
     
             // Получаем данные пользователя из ответа
-            const { username } = response.data;
+            const { username , wholesale } = response.data;
     
     
             
             // Обновляем состояние в Redux
-            dispatch(setUser({ email, username }));
+            dispatch(setUser({ email, username  , wholesale}));
              
             setMessage('Вход выполнен успешно');
             setRedirect(true);
