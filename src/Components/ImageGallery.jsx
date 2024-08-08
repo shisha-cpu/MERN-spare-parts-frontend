@@ -1,3 +1,4 @@
+// ImageGallery.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './card.css';
@@ -22,7 +23,7 @@ const ImageGallery = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://62.113.108.165:4444/data/')
+    axios.get('http://62.113.108.165:4444/data')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
@@ -53,15 +54,13 @@ const ImageGallery = () => {
   };
 
   const handleSubmit = (item) => {
-    const count = parseInt(prompt('Введите количество '), 10);
-    if (isNaN(count) || count <= 0) {
-      alert('Введите корректное количество');
-      return;
-    }
-    axios.post('http://62.113.108.165:4444/add-to-basket', { product: item, username: user.userInfo.username , count })
+    const count = parseInt(prompt('Введите количество '), 10); 
+    
+    axios.post('http://62.113.108.165:4444/add-to-basket', { product: item, username: user.userInfo.username, count: count })
       .then(res => console.log(res))
       .catch(err => console.log(err));
-  };
+};
+
 
   return (
     <div className="container">
@@ -96,11 +95,7 @@ const ImageGallery = () => {
                   />
                 </div>
               </div>
-              {user.userInfo.username && (
-                <div style={{ marginTop: 'auto' }}>
-                  <Button text='Добавить' func={() => handleSubmit(item)} />
-                </div>
-              )}
+              {user.userInfo.username ? <Button text='Добавить' func={() => handleSubmit(item)} /> : ''}
             </div>
           </div>
         ))}
@@ -108,6 +103,5 @@ const ImageGallery = () => {
     </div>
   );
 };
-
 
 export default ImageGallery;
