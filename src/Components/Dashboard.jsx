@@ -19,11 +19,12 @@ export default function Dashboard() {
 
     const handleOrder = async () => {
         const orderDetails = basket.map(item => ({
-            name: item.Наименование,
-            catalog: item.Каталог,
-            manufacturer: item.Производитель,
-            article: item.Артикул,
-            price: item.РОЗНИЦА,
+            name: item.product.Наименование,
+            catalog: item.product.Каталог,
+            manufacturer: item.product.Производитель,
+            article: item.product.Артикул,
+            price: item.product.РОЗНИЦА,
+            count : item.count
         }));
 
         const message = `
@@ -31,19 +32,19 @@ export default function Dashboard() {
           Телефон: ${user.userInfo.phone}
           Почта: ${user.userInfo.email}
           Товары:
-          ${orderDetails.map(item => `Наименование: ${item.name}, Каталог: ${item.catalog}, Производитель: ${item.manufacturer}, Артикул: ${item.article}, Цена: ${item.price}`).join('\n')}
+          ${orderDetails.map(item => `Наименование: ${item.name}, Каталог: ${item.catalog}, Производитель: ${item.manufacturer}, Артикул: ${item.article}, Цена: ${item.price}, Количество : ${item.count}`).join('\n')}
           Общая сумма: ${price}
         `;
-
+    
+        
         try {
-            // Замените `YOUR_BOT_TOKEN` и `YOUR_CHAT_ID` на ваши значения
             const botToken = '6905722948:AAFcLUxKVCJ1tIF03S8l2xLbjo50buyYYoU';
             const chatId = '1137493485';
             await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 chat_id: chatId,
                 text: message,
             });
-
+          
             await axios.post('http://62.113.108.165:4444/get-order', { username: user.userInfo.username });
             alert('Ваш заказ был успешно отправлен!');
             window.location.reload();
@@ -63,6 +64,7 @@ export default function Dashboard() {
             alert('Ошибка при удалении товара из корзины');
         }
     };
+    console.log(basket[0]);
     
 
     return (
@@ -77,14 +79,15 @@ export default function Dashboard() {
                             {index}
                             <div className="basket-content">
                                 <div className="basket-item-header">
-                                    <p>{item.Наименование}</p>
+                                    <p>{item.product.Наименование}</p>
                                 </div>
-                                <p>Каталог: {item.Каталог}</p>
-                                <p>Производитель: {item.Производитель}</p>
-                                <p>Артикул: {item.Артикул}</p>
+                                <p>Каталог: {item.product.Каталог}</p>
+                                <p>Производитель: {item.product.Производитель}</p>
+                                <p>Артикул: {item.product.Артикул}</p>
                                 {user.userInfo.wholesale && <p>Оптовая цена: {item.ОПТ}</p>}
-                                <p>Розничная цена: {item.РОЗНИЦА}</p>
-                                <div style={{ display: 'none' }}>{price += item.РОЗНИЦА}</div>
+                                <p>Розничная цена: {item.product.РОЗНИЦА}</p>
+                                <p>Количество : {item.count}</p>
+                                <div style={{ display: 'none' }}>{price += item.product.РОЗНИЦА}</div>
                             </div>
                             <button className="delete-button" onClick={() => handleDelete(index)}>Удалить</button>
                         </div>

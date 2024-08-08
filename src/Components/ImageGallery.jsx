@@ -1,8 +1,7 @@
-// ImageGallery.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './card.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from './elements/Button';
 
 const ImageGallery = () => {
@@ -23,7 +22,7 @@ const ImageGallery = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://62.113.108.165:4444/data')
+    axios.get('http://62.113.108.165:4444/data/')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
@@ -54,7 +53,12 @@ const ImageGallery = () => {
   };
 
   const handleSubmit = (item) => {
-    axios.post('http://62.113.108.165:4444/add-to-basket', { product: item, username: user.userInfo.username })
+    const count = parseInt(prompt('Введите количество '), 10);
+    if (isNaN(count) || count <= 0) {
+      alert('Введите корректное количество');
+      return;
+    }
+    axios.post('http://62.113.108.165:4444/add-to-basket', { product: item, username: user.userInfo.username , count })
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
@@ -74,23 +78,29 @@ const ImageGallery = () => {
         {filteredData.map((item, index) => (
           <div key={index} className="card">
             <div className="card_content">
-              <div className="card_margin">
-                <p className="card_title">{item.Наименование}</p>
+              <div className="img-flex">
+                <div className="card_margin">
+                  <p className="card_title">{item.Наименование}</p>
+                </div>
+                <p>Каталог: {item.Каталог}</p>
+                <p>Производитель: {item.Производитель}</p>
+                {item.Количество > 5 ? <p>Осталось >5 шт.</p> : <p>Осталось: {item.Количество} шт.</p>}
+                <p>Артикул: {item.Артикул}</p>
+                {user.userInfo.wholesale ? <p>Оптовая цена: {item.ОПТ}</p> : ''}
+                <p>Цена: {item.РОЗНИЦА} рублей </p>
+                <div className="img-container">
+                  <img
+                    src={`/фото/${item.id}.jpg`}
+                    alt={`Изображение ${item.id}`}
+                    onError={(e) => handleImageError(e, item.id)}
+                  />
+                </div>
               </div>
-              <p>Каталог: {item.Каталог}</p>
-              <p>Производитель: {item.Производитель}</p>
-              {item.Количество > 5 ? <p>Осталось >5 шт.</p> : <p>Осталось: {item.Количество} шт.</p>}
-              <p>Артикул: {item.Артикул}</p>
-              {user.userInfo.wholesale ? <p>Оптовая цена: {item.ОПТ}</p> : ''}
-              <p>Розничная цена: {item.РОЗНИЦА} рублей </p>
-              <div className="img-container">
-                <img
-                  src={`/фото/${item.id}.jpg`}
-                  alt={`Изображение ${item.id}`}
-                  onError={(e) => handleImageError(e, item.id)}
-                />
-              </div>
-              {user.userInfo.username ? <Button text='Добавить' func={() => handleSubmit(item)} /> : ''}
+              {user.userInfo.username && (
+                <div style={{ marginTop: 'auto' }}>
+                  <Button text='Добавить' func={() => handleSubmit(item)} />
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -98,5 +108,6 @@ const ImageGallery = () => {
     </div>
   );
 };
+
 
 export default ImageGallery;
