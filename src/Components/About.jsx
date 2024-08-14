@@ -1,5 +1,5 @@
 import React from 'react';
-import './About.css'; // Предполагаем, что стили находятся в этом файле
+import './About.css';
 
 export default function About() {
     return (

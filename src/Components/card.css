@@ -21,7 +21,7 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensures the button is at the bottom */
+  justify-content: space-between; 
 }
 
 .card:hover {
@@ -30,7 +30,7 @@ body {
 
 .card_content {
   padding: 20px;
-  flex-grow: 1; /* Makes the card content take up available space */
+  flex-grow: 1; 
   display: flex;
   flex-direction: column;
   justify-content: space-between;

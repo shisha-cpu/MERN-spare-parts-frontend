@@ -82,7 +82,7 @@
     width: 100%;
 }
 
-/* Стили для кнопки бургер */
+
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -112,7 +112,7 @@
     transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* Стили для навигации на мобильных устройствах */
+
 .navigation, .auth-navigation {
     display: flex;
     gap: 20px;
@@ -123,7 +123,7 @@
         display: none;
         flex-direction: column;
         position: absolute;
-        top: 70px; /* Расположите ниже логотипа или измените по необходимости */
+        top: 70px; 
         right: 0;
         background-color: #282c34;
         width: 100%;
@@ -177,23 +177,23 @@
     padding: 0;
     text-decoration: none;
     margin-left: 15px;
-    font-size: 16px; /* Adjust font size as needed */
-    color: #b40d0d; /* Initial color, adjust to fit your theme */
-    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transition for color change */
+    font-size: 16px; 
+    color: #b40d0d; 
+    transition: color 0.3s ease, background-color 0.3s ease; 
 }
 
 .navigation ul li button:hover {
-    color: #20b1dd; /* Hover color, adjust to fit your theme */
+    color: #20b1dd; 
   
 }
 
 .navigation ul li button:focus {
     outline: none;
-    color: #003f7f; /* Focus color, adjust to fit your theme */
-    text-decoration: underline; /* Optional: add underline on focus */
+    color: #003f7f; 
+    text-decoration: underline; 
 }
 
 .navigation ul li button:active {
-    color: #002b5e; /* Active color, adjust to fit your theme */
-    text-decoration: underline; /* Optional: add underline on active */
+    color: #002b5e; 
+    text-decoration: underline;
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './login.css'; // Подключение файла стилей
+import './login.css';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { setUser } from '../store/slices/userSlice';
@@ -23,12 +23,12 @@ const Login = () => {
        
             });
     
-            // Получаем данные пользователя из ответа
+ 
             const { username , wholesale } = response.data;
     
     
             
-            // Обновляем состояние в Redux
+   
             dispatch(setUser({ email, username  , wholesale}));
              
             setMessage('Вход выполнен успешно');

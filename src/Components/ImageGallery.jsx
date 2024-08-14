@@ -1,4 +1,4 @@
-// ImageGallery.js
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './card.css';
@@ -12,7 +12,6 @@ const ImageGallery = () => {
   const [filteredData, setFilteredData] = useState([]);
   const user = useSelector(state => state.user);
 
-  // Load images
   useEffect(() => {
     const tempImages = Array.from({ length: 737 }, (_, i) => ({
       id: i + 1,
@@ -30,14 +29,15 @@ const ImageGallery = () => {
 
   useEffect(() => {
     const lowercasedQuery = searchQuery.toLowerCase();
-    const normalizedQuery = lowercasedQuery.replace(/[^a-z0-9]/g, '');
+    const normalizedQuery = lowercasedQuery.replace(/[^a-zа-яё0-9]/gi, '');
 
     setFilteredData(data.filter(item => {
-      const article = String(item.Артикул).toLowerCase().replace(/[^a-z0-9]/g, '');
-      const name = String(item.Наименование).toLowerCase();
-      return article.includes(normalizedQuery) || name.includes(lowercasedQuery);
+        const article = String(item.Артикул).toLowerCase().replace(/[^a-z0-9]/g, '');
+        const name = String(item.Наименование).toLowerCase().replace(/[^a-zа-яё0-9]/g, '');
+        return article.includes(normalizedQuery) || name.includes(lowercasedQuery);
     }));
-  }, [data, searchQuery]);
+}, [data, searchQuery]);
+
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);

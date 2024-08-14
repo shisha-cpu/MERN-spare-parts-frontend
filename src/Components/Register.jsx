@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './register.css'; // Подключение файла стилей
+import './register.css'; 
 import { Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../store/slices/userSlice';
@@ -34,9 +34,9 @@ const Register = () => {
 
             console.log('Server response:', response.data);
             setMessage(response.data.message);
-            // localStorage.setItem('user', JSON.stringify(userData));
+
             if (response.data.message === 'User registered successfully') {
-                const basket = []; // Initialize basket as an empty array
+                const basket = [];
                 dispatch(setUser({ username, email, wholesale: false, basket, phone }));
                 setRedirect(true);
             }

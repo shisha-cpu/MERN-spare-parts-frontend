@@ -12,7 +12,7 @@ export default function Dashboard() {
         if (user.userInfo.username) {
             axios.get(`http://62.113.108.165:4444/user/${user.userInfo.username}/basket`)
                 .then(res => {
-                    console.log(res.data); // Для проверки данных
+                    console.log(res.data);
                     setBasket(res.data);
                 })
                 .catch(err => console.log(err));
@@ -56,7 +56,7 @@ export default function Dashboard() {
 
             await axios.post('http://62.113.108.165:4444/get-order', { username: user.userInfo.username });
             alert('Ваш заказ был успешно отправлен!');
-            setBasket([]); // Очистите корзину после заказа
+            setBasket([]); 
         } catch (error) {
             console.log(error);
             alert('Ошибка при отправке заказа');
@@ -66,7 +66,7 @@ export default function Dashboard() {
     const handleDelete = async (index) => {
         try {
             await axios.delete(`http://62.113.108.165:4444/${user.userInfo.username}/basket/${index}`);
-            setBasket(basket.filter((_, i) => i !== index)); // Обновите состояние здесь
+            setBasket(basket.filter((_, i) => i !== index)); 
         } catch (error) {
             console.log(error);
             alert('Ошибка при удалении товара из корзины');

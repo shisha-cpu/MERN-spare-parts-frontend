@@ -1,4 +1,4 @@
-/* Основной стиль */
+
 .header-title {
     position: relative;
     color: #fff;
@@ -61,7 +61,7 @@
     }
 }
 
-/* Для экранов до 480px (например, маленькие телефоны) */
+
 @media (max-width: 480px) {
     .header-title {
         font-size: 5vw;
