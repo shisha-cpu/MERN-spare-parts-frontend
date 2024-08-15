@@ -12,7 +12,7 @@ export default function Home(){
     return(
         <div className="container">
             <div className="header-title">
-                 <h1 className="title" >Запчасти для Грузовых Холодильных  Установок</h1>
+                 <h1 className="title" >Магазин запчастей для рефрижераторов</h1>
             </div>
 
             <div className="home-content">
@@ -32,7 +32,7 @@ export default function Home(){
                         <img src="../../public/фотосклада .jpg" alt="About us" />
                     </div>
                     <div className="about-content">
-                        <p>Мы специализируемся на предоставлении качественных запчастей для грузовых холодильных установок. Наша команда обладает многолетним опытом и всегда готова помочь вам с выбором необходимых деталей.</p>
+                        <p>Мы специализируемся на предоставлении качественных запчастей для рефрижераторов  Thermo king & Carrier. Наша команда обладает многолетним опытом и всегда готова помочь вам с выбором необходимых деталей.</p>
                         <div className="home-btn">
                             <Link to='/about'>
                                 <Button text='Узнать больше' />
@@ -47,17 +47,17 @@ export default function Home(){
                             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Ivan_Petrov-.jpg" alt="User 1" />
                         </div>
                         <div className="feedback-content">
-                            <p>"Отличный сервис и качество запчастей. Очень доволен!"</p>
-                            <span>- Иван Петров</span>
+                            <p>"Большой выбор и хорошее качество запчастей!"</p>
+                            <span>- Михаил Анатольевич</span>
                         </div>
                     </div>
                     <div className="feedback-card">
                         <div className="feedback-photo">
-                            <img src="https://static.tvmaze.com/uploads/images/original_untouched/299/748132.jpg" alt="User 2" />
+                            <img src="https://avatars.mds.yandex.net/i?id=e0c6c6c4cf38a67410ed4193b1cf69be_l-5288900-images-thumbs&n=13" alt="User 2" />
                         </div>
                         <div className="feedback-content">
                             <p>"Быстрая доставка и хорошие цены. Рекомендую."</p>
-                            <span>- Ольга Иванова</span>
+                            <span>- Денис Олегович</span>
                         </div>
                     </div>
                     <div className="feedback-card">
@@ -66,7 +66,7 @@ export default function Home(){
                         </div>
                         <div className="feedback-content">
                             <p>"Профессиональный подход и отличная поддержка."</p>
-                            <span>- Сергей Смирнов</span>
+                            <span>- Сергей Николаевич</span>
                         </div>
                     </div>
                     <footer className="footer">

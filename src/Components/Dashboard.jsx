@@ -2,20 +2,18 @@ import axios from "axios";
 import { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import Button from "./elements/Button";
+import Modal from "./Modal";
 import './dashboard.css';
 
 export default function Dashboard() {
     const [basket, setBasket] = useState([]);
+    const [modal, setModal] = useState({ isOpen: false, title: '', message: '' });
     const user = useSelector(state => state.user);
 
     useEffect(() => {
         if (user.userInfo.username) {
             axios.get(`http://62.113.108.165:4444/user/${user.userInfo.username}/basket`)
                 .then(res => {
-
-                    console.log(res.data);
-
-
                     setBasket(res.data);
                 })
                 .catch(err => console.log(err));
@@ -38,8 +36,7 @@ export default function Dashboard() {
             price: item.product?.РОЗНИЦА,
             count: item.count
         }));
-        
-        
+
         const message = `
           Заказ от пользователя: ${user.userInfo.username}
           Телефон: ${user.userInfo.phone}
@@ -51,11 +48,8 @@ export default function Dashboard() {
         `;
 
         try {
-
             const botToken = '6905722948:AAFcLUxKVCJ1tIF03S8l2xLbjo50buyYYoU';
             const chatId = '736009389';
-
-
 
             await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 chat_id: chatId,
@@ -63,25 +57,35 @@ export default function Dashboard() {
             });
 
             await axios.post('http://62.113.108.165:4444/get-order', { username: user.userInfo.username });
-            alert('Ваш заказ был успешно отправлен!');
+
+            setModal({
+                isOpen: true,
+                title: 'Успех',
+                message: 'Ваш заказ был успешно отправлен! В ближайшее время с вами свяжется менеджер для уточнения деталей!',
+            });
 
             setBasket([]); 
-
-
         } catch (error) {
             console.log(error);
-            alert('Ошибка при отправке заказа');
+            setModal({
+                isOpen: true,
+                title: 'Ошибка',
+                message: 'Ошибка при отправке заказа',
+            });
         }
     };
 
     const handleDelete = async (index) => {
         try {
             await axios.delete(`http://62.113.108.165:4444/${user.userInfo.username}/basket/${index}`);
-            setBasket(basket.filter((_, i) => i !== index)); 
-
+            setBasket(basket.filter((_, i) => i !== index));
         } catch (error) {
             console.log(error);
-            alert('Ошибка при удалении товара из корзины');
+            setModal({
+                isOpen: true,
+                title: 'Ошибка',
+                message: 'Ошибка при удалении товара из корзины',
+            });
         }
     };
 
@@ -120,6 +124,12 @@ export default function Dashboard() {
                     <Button text='Заказать' func={handleOrder} />
                 </div>
             )}
+            <Modal 
+                isOpen={modal.isOpen} 
+                onClose={() => setModal({ ...modal, isOpen: false })} 
+                title={modal.title} 
+                message={modal.message} 
+            />
         </div>
     );
 }
