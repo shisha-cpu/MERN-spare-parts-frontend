@@ -23,13 +23,14 @@ const Login = () => {
        
             });
     
- 
-            const { username , wholesale } = response.data;
+            console.log( response.data);
+            
+            const { username , wholesale , phone } = response.data;
     
     
             
    
-            dispatch(setUser({ email, username  , wholesale}));
+            dispatch(setUser({ email, username  , wholesale , phone}));
              
             setMessage('Вход выполнен успешно');
             setRedirect(true);
