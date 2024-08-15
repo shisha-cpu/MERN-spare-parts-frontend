@@ -34,9 +34,10 @@ const ImageGallery = () => {
     setFilteredData(data.filter(item => {
         const article = String(item.Артикул).toLowerCase().replace(/[^a-z0-9]/g, '');
         const name = String(item.Наименование).toLowerCase().replace(/[^a-zа-яё0-9]/g, '');
-        return article.includes(normalizedQuery) || name.includes(lowercasedQuery);
+        return article.includes(normalizedQuery) || name.includes(normalizedQuery);
     }));
 }, [data, searchQuery]);
+
 
 
   const handleSearchChange = (e) => {
