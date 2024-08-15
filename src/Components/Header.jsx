@@ -58,7 +58,7 @@ export default function Header() {
                 <div className="contact-links">
                     <p>
                     <a href="tel:+79515515625">+79515515625</a> <br />
-                <a href="https://wa.me/89515515625">WhatsApp</a><br/>
+                <a href="https://wa.me/+79515515625">WhatsApp</a><br/>
                      <a href="https://t.me/Refvrn">Telegram</a>
                     </p>
                 </div>

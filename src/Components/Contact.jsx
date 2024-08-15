@@ -33,9 +33,10 @@ export default function Contact() {
                     <p>
                         Режим работы: 7 дней в неделю с 9:00 до 21:00<br/>
                         E-mail: ark4da.vrn@yandex.ru<br/>
-                        Телефоны отдела продаж: 89515515625<br/>
-                        WhatsApp: <a href="https://wa.me/89515515625">89515515625</a><br/>
-                        Telegram: <a href="https://t.me/Refvrn">Refvrn</a>
+                        Телефоны отдела продаж:<a href="tel:+79515515625">+79515515625</a> <br/>
+                 
+                <a href="https://wa.me/+79515515625">WhatsApp</a><br/>
+                     <a href="https://t.me/Refvrn">Telegram</a>
                     </p>
                 </div>
             </div>
