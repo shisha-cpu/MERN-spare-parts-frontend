@@ -68,6 +68,7 @@ const ImageGallery = () => {
     <div className="container">
       <div className="search-container">
         <input
+          id="jaga"
           type="text"
           placeholder="Поиск по артикулу или названию"
           value={searchQuery}
