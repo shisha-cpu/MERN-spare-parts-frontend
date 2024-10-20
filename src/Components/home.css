@@ -4,7 +4,7 @@
     color: #fff;
     text-align: center;
     font-size: 3.5vw; 
-    background: url('https://bogatyr.club/uploads/posts/2023-03/1678693987_bogatyr-club-p-fon-zapchasti-avto-foni-krasivo-22.jpg');
+    background: url('./ead520c4-2c6c-4aa6-ad2d-46bdcd970936.jfif');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -18,7 +18,7 @@
     margin-bottom: 20px;
 }
 
-.header-title::before {
+/* .header-title::before {
     content: '';
     position: absolute;
     top: 0;
@@ -28,7 +28,7 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 1;
     transition: background 0.5s ease;
-}
+} */
 
 .header-title h1 {
     position: relative;

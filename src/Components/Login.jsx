@@ -17,21 +17,34 @@ const Login = () => {
         e.preventDefault();
     
         try {
-            const response = await axios.post('http://62.113.108.165:4444/login', {
+            const response = await axios.post('http://localhost:4444/login', {
                 email,
                 password,
-       
             });
     
-            console.log( response.data);
-            
-            const { username , wholesale , phone } = response.data;
+            console.log(response.data);
     
+            // Destructure all relevant properties from the response
+            const { 
+                username, 
+                wholesale, 
+                phone, 
+                createdAt, 
+                basket, 
+                orderHistory 
+            } = response.data;
     
-            
-   
-            dispatch(setUser({ email, username  , wholesale , phone}));
-             
+            // Dispatch the setUser action with all necessary user data
+            dispatch(setUser({ 
+                email, 
+                username, 
+                wholesale, 
+                phone, 
+                createdAt, 
+                basket, 
+                orderHistory 
+            }));
+    
             setMessage('Вход выполнен успешно');
             setRedirect(true);
         } catch (error) {
@@ -42,6 +55,7 @@ const Login = () => {
             }
         }
     };
+    
     
 
     if (redirect) {

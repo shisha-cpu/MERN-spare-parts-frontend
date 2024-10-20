@@ -6,7 +6,21 @@
     max-width: 800px;
     margin: 0 auto;
 }
+.quantity-container{
+    display: flex;
+}
+.quantity-container button{
+    font-size: 25px;
+    font-weight: 700;
+    border: 0;
+    color: white;
+    background-color: #555;
+    cursor: pointer;
+    padding: 5px;
+   border-radius: 20px;
+   margin: 0 10px;
 
+}
 .dashboard-header {
     text-align: center;
     font-size: 2em;
@@ -66,4 +80,94 @@ h3 {
     margin-top: 20px;
     text-align: right;
     color: #555;
+}
+.dashboard-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.user-data-list {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-data-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-data-list li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.user-data-list strong {
+    color: #007bff; /* Bootstrap primary color */
+}
+
+.order-history {
+    margin-top: 20px;
+    border-top: 2px solid #007bff; /* A line to separate order history */
+    padding-top: 10px;
+}
+
+.order-history li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+}
+
+.order-history h5 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    color: #444;
+}
+
+.order-history ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.order-history ul li {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Button styling */
+.auth-btn {
+ 
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-btn:hover {
+  
+}
+
+.message {
+    color: red; /* Message color for errors or notifications */
+    text-align: center;
+    margin-bottom: 15px;
 }

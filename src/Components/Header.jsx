@@ -70,6 +70,7 @@ export default function Header() {
                         </>
                     ) : (
                         <>
+                            <li><Link to='/basket' onClick={closeMenu}>Корзина</Link></li>
                             <li><Link to='/dashboard' onClick={closeMenu}>Личный кабинет</Link></li>
                             <li><button onClick={handleLogout}>Выйти</button></li>
                         </>

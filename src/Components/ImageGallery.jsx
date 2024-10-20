@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './card.css';
@@ -10,6 +9,7 @@ const ImageGallery = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
   const user = useSelector(state => state.user);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const ImageGallery = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://62.113.108.165:4444/data')
+    axios.get('http://localhost:4444/data')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
@@ -32,13 +32,32 @@ const ImageGallery = () => {
     const normalizedQuery = lowercasedQuery.replace(/[^a-zа-яё0-9]/gi, '');
 
     setFilteredData(data.filter(item => {
-        const article = String(item.Артикул).toLowerCase().replace(/[^a-z0-9]/g, '');
-        const name = String(item.Наименование).toLowerCase().replace(/[^a-zа-яё0-9]/g, '');
-        return article.includes(normalizedQuery) || name.includes(normalizedQuery);
+      const article = String(item.Артикул).toLowerCase().replace(/[^a-z0-9]/g, '');
+      const name = String(item.Наименование).toLowerCase().replace(/[^a-zа-яё0-9]/g, '');
+      return article.includes(normalizedQuery) || name.includes(normalizedQuery);
     }));
-}, [data, searchQuery]);
+  }, [data, searchQuery]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollToTop(window.scrollY > 300);
+    };
 
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash.startsWith('#search=')) {
+      const query = hash.split('=')[1];
+      setSearchQuery(decodeURIComponent(query));
+    }
+  }, []);
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -54,27 +73,50 @@ const ImageGallery = () => {
     }
   };
 
-  const handleSubmit = (item) => {
-    const count = parseInt(prompt('Введите количество '), 10); 
-    
-    axios.post('http://62.113.108.165:4444/add-to-basket', { product: item, username: user.userInfo.username, count: count })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-};
+  const handleSubmit = async (item) => {
+    const count = parseInt(prompt('Введите количество:'), 10);
 
-  
+    // Validate input
+    if (!isNaN(count) && count > 0) {
+      console.log('Sending data to server:', {
+        product: item,
+        username: user.userInfo.username,
+        count: count,
+      });
+
+      try {
+        const response = await axios.post('http://localhost:4444/add-to-basket', {
+          product: item,
+          username: user.userInfo.username,
+          count: count,
+        });
+        console.log('Server response:', response.data);
+      } catch (err) {
+        console.error('Error adding to basket:', err);
+      }
+    } else {
+      alert('Введите корректное количество.');
+    }
+  };
+
+  const searchLink = `http://localhost:5174/catalog#search=${encodeURIComponent(searchQuery)}`;
 
   return (
     <div className="container">
       <div className="search-container">
         <input
-          id="jaga"
+          id="search"
           type="text"
           placeholder="Поиск по артикулу или названию"
           value={searchQuery}
           onChange={handleSearchChange}
           className="search-input"
         />
+        <div className="search-link-container">
+          <a href={searchLink} className="search-link" style={{ display: 'none' }}>
+            Искать
+          </a>
+        </div>
       </div>
       <div className="card_container">
         {filteredData.map((item, index) => (
@@ -86,10 +128,12 @@ const ImageGallery = () => {
                 </div>
                 <p>Каталог: {item.Каталог}</p>
                 <p>Производитель: {item.Производитель}</p>
-                {item.Количество > 5 ? <p>Осталось >5 шт.</p> : <p>Осталось: {item.Количество} шт.</p>}
+                <p>Осталось: {item.Количество} шт.</p>
                 <p>Артикул: {item.Артикул}</p>
-                {user.userInfo.wholesale ? <p>Цена: {item.ОПТ}</p> :  <p>Цена: {item.РОЗНИЦА} рублей </p>}
-              
+                {user.userInfo.wholesale ? 
+                  <p><strong>Цена: {item.ОПТ}</strong></p> : 
+                  <p><strong>Цена: {item.РОЗНИЦА} рублей</strong></p>
+                }
                 <div className="img-container">
                   <img
                     src={`/фото/${item.id}.jpg`}
@@ -98,11 +142,21 @@ const ImageGallery = () => {
                   />
                 </div>
               </div>
-              {user.userInfo.username ? <Button text='Добавить' func={() => handleSubmit(item)} /> : ''}
+              {user.userInfo.username && 
+                <Button text='Добавить' func={() => handleSubmit(item)} />
+              }
             </div>
           </div>
         ))}
       </div>
+      {showScrollToTop && (
+        <button
+          className="scroll-to-top"
+          onClick={handleScrollToTop}
+        >
+          ↑ Наверх
+        </button>
+      )}
     </div>
   );
 };

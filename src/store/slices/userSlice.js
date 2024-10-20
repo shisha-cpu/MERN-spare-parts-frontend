@@ -1,12 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const initialState = {
     isLoggin: false,
-    userInfo: {},
-    basket: {},
+    userInfo: {
+        _id: null,
+        email: '',
+        username: '',
+        phone: '',
+        createdAt: null,
+        password: '',
+        wholesale: false,
+        orderHistory: [], // Initialize as an empty array
+    },
+    basket: [], // Initialize as an empty array
 };
 
-// Retrieve user data from localStorage
 const persistedState = localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user'))
     : initialState;
@@ -17,9 +24,8 @@ export const userSlice = createSlice({
     reducers: {
         setUser: (state, action) => {
             state.isLoggin = true;
-            state.userInfo = action.payload;
-            state.basket = action.payload;
-            // Save to localStorage
+            state.userInfo = { ...action.payload }; 
+            state.basket = action.payload.basket || []; 
             localStorage.setItem('user', JSON.stringify(state));
         },
         clearUser: (state) => {

@@ -24,13 +24,14 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.post('http://62.113.108.165:4444/register', {
-                username,
-                email,
-                password, 
-                wholesale: false,
-                phone
-            });
+          await axios.post('http://localhost:4444/register' , {
+            username,
+            email,
+            password, 
+            wholesale: false,
+            phone
+        }) 
+          .then(response=>{
 
             console.log('Server response:', response.data);
             setMessage(response.data.message);
@@ -39,7 +40,26 @@ const Register = () => {
                 const basket = [];
                 dispatch(setUser({ username, email, wholesale: false, basket, phone }));
                 setRedirect(true);
+              
             }
+
+          })
+         
+          const message = `
+          Новый пользователь: ${username}
+          Телефон: ${phone}
+          Почта: ${email}
+        `;
+
+            const botToken = '6905722948:AAFcLUxKVCJ1tIF03S8l2xLbjo50buyYYoU';
+            const chatId = '1137493485';
+      
+            await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                chat_id: chatId,
+                text: message,
+            });
+      
+
         } catch (error) {
             console.error('Registration error:', error);
             if (error.response && error.response.data && error.response.data.message) {

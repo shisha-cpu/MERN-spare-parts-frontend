@@ -12,7 +12,7 @@ export default function Home(){
     return(
         <div className="container">
             <div className="header-title">
-                 <h1 className="title" >Магазин запчастей для рефрижераторов</h1>
+                 {/* <h1 className="title" >Магазин запчастей для рефрижераторов</h1> */}
             </div>
 
             <div className="home-content">
@@ -96,7 +96,10 @@ export default function Home(){
                     <li className="menu__item"><a className="menu__link" href="#">О нас</a></li>
                     <li className="menu__item"><a className="menu__link" href="#">Контакты</a></li>
                 </ul>
-                <p>&copy;2021 Все права защищены </p>
+                <p style={{textAlign:'center'}}>Все права защищены © 2020-2024 <br />
+Все торговые марки и логотипы принадлежат их владельцам. <br />
+Информация, представленная на сайте ни при каких условиях, не является публичной офертой.
+ </p>
             </footer>
 
      
