@@ -35,7 +35,7 @@ export default function Basket() {
 
     useEffect(() => {
         if (user.userInfo.username) {
-            axios.get(`http://localhost:4444/user/${user.userInfo.username}/basket`)
+            axios.get(`http://62.217.181.247:4445/user/${user.userInfo.username}/basket`)
                 .then(res => {
                     setBasket(res.data);
                 })
