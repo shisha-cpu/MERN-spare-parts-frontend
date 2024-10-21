@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import Button from "./elements/Button";
 import Modal from "./Modal.jsx";
 import './dashboard.css';
-import * as XLSX from "xlsx";
 
 const botToken = '6905722948:AAFcLUxKVCJ1tIF03S8l2xLbjo50buyYYoU';
 const chatId = '1137493485';
@@ -14,7 +13,7 @@ const sendTelegramMessage = async (message) => {
         await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             chat_id: chatId,
             text: message,
-            parse_mode: 'HTML' // Можно использовать HTML для форматирования
+            parse_mode: 'HTML'
         });
     } catch (error) {
         console.error('Ошибка при отправке сообщения в Telegram:', error);
@@ -42,13 +41,11 @@ export default function Basket() {
                 .catch(err => console.log(err));
         }
     }, [user.userInfo.username]);
-  
-    
+
     useEffect(() => {
-        // Save basket to localStorage whenever it changes
         localStorage.setItem('basket', JSON.stringify(basket));
     }, [basket]);
-    
+
     const totalPrice = useMemo(() => {
         return basket.reduce((sum, item) => {
             const price = user.userInfo.wholesale ? item.product?.ОПТ : item.product?.РОЗНИЦА;
@@ -56,16 +53,12 @@ export default function Basket() {
         }, 0);
     }, [basket, user.userInfo.wholesale]);
 
-   
-
-    
     const handleOrder = async () => {
-          console.log(user.userInfo.email);
-          axios.post('http://62.217.181.247:4445/get-order', { email: user.userInfo.email })
-        .then(res => console.log(res.data)
-        )
-        .catch(err=>(console.log(err)
-        ))
+        console.log(user.userInfo.email);
+        axios.post('http://62.217.181.247:4445/get-order', { email: user.userInfo.email })
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err));
+
         const orderDetails = basket.map(item => ({
             article: item.product?.Артикул || "не указан",
             name: item.product?.Наименование_заказа || "не указано",
@@ -73,16 +66,15 @@ export default function Basket() {
             price: item.product?.РОЗНИЦА || 0,
             total: (item.product?.РОЗНИЦА || 0) * item.count
         }));
-    
+
         const totalOrderSum = totalPrice;
-    
+
         const message = `Заказ от пользователя: ${user.userInfo.username}\n` +
                         `Телефон: ${user.userInfo.phone}\n` +
                         `Почта: ${user.userInfo.email}\n` +
-                        `Товары:\n` + orderDetails.map(item => 
-                            `${item.name}`).join('\n') +
+                        `Товары:\n` + orderDetails.map(item => `${item.name}`).join('\n') +
                         `\nИтог: ${totalOrderSum} рублей`;
-    
+
         try {
             const response = await fetch('http://62.217.181.247:4445/api/send-order', {
                 method: 'POST',
@@ -97,20 +89,18 @@ export default function Basket() {
                     totalOrderSum
                 })
             });
-    
+
             const data = await response.json();
             if (data.success) {
-                await sendTelegramMessage(message); // Отправка сообщения в Telegram
+                await sendTelegramMessage(message);
                 setModal({
                     isOpen: true,
                     title: 'Успех',
                     message: 'Ваш заказ был успешно отправлен!',
                 });
-    
-      
-           
+
                 setBasket([]);
-                localStorage.removeItem('basket'); 
+                localStorage.removeItem('basket');
             } else {
                 setModal({
                     isOpen: true,
@@ -127,8 +117,7 @@ export default function Basket() {
             });
         }
     };
-    
-    
+
     const handleDelete = async (index) => {
         try {
             await axios.delete(`http://62.217.181.247:4445/${user.userInfo.username}/basket/${index}`);
@@ -143,18 +132,21 @@ export default function Basket() {
         }
     };
 
-    const increaseCount = (index) => {
-        setBasket(basket.map((item, i) => 
-            i === index ? { ...item, count: item.count + 1 } : item
-        ));
+    const updateCount = async (index, newCount) => {
+        const updatedBasket = basket.map((item, i) =>
+            i === index ? { ...item, count: newCount } : item
+        );
+        setBasket(updatedBasket);
+
+        try {
+            await axios.put(`http://62.217.181.247:4445/${user.userInfo.username}/basket/${index}`, {
+                count: newCount,
+            });
+        } catch (error) {
+            console.error('Ошибка при обновлении количества:', error);
+        }
     };
 
-    const decreaseCount = (index) => {
-        setBasket(basket.map((item, i) => 
-            i === index && item.count > 1 ? { ...item, count: item.count - 1 } : item
-        ));
-    };
-    
     return (
         <div className="dashboard-container">
             <h1 className="dashboard-header">Корзина пользователя: {user.userInfo.username}</h1>
@@ -179,11 +171,16 @@ export default function Basket() {
                                     <p>Каталог: {catalog}</p>
                                     <p>Производитель: {manufacturer}</p>
                                     <p>Артикул: {article}</p>
-                                    {user.userInfo.wholesale ? <p>Цена: {item.product.ОПТ}</p> : <p>Цена: {retailPrice}</p> }
+                                    {user.userInfo.wholesale ? <p>Цена: {item.product.ОПТ}</p> : <p>Цена: {retailPrice}</p>}
                                     <div className="quantity-container">
-                                        <button onClick={() => decreaseCount(index)}>-</button>
-                                        <p>Количество: {item.count}</p>
-                                        <button onClick={() => increaseCount(index)}>+</button>
+                                        <button onClick={() => updateCount(index, item.count > 1 ? item.count - 1 : 1)}>-</button>
+                                        <input
+                                            type="number"
+                                            value={item.count}
+                                            min="1"
+                                            onChange={(e) => updateCount(index, Math.max(1, Number(e.target.value)))}
+                                        />
+                                        <button onClick={() => updateCount(index, item.count + 1)}>+</button>
                                     </div>
                                 </div>
                                 <button className="delete-button" onClick={() => handleDelete(index)}>Удалить</button>
@@ -195,10 +192,10 @@ export default function Basket() {
                 </div>
             )}
             <Modal
-                isOpen={modal.isOpen} 
-                onClose={() => setModal({ ...modal, isOpen: false })} 
-                title={modal.title} 
-                message={modal.message} 
+                isOpen={modal.isOpen}
+                onClose={() => setModal({ ...modal, isOpen: false })}
+                title={modal.title}
+                message={modal.message}
             />
         </div>
     );

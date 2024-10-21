@@ -51,6 +51,7 @@ export default function Dashboard() {
             console.error("Ошибка при обновлении данных:", err);
         });
     };
+    console.log(user.userInfo.wholesale);
     
     return (
         <div className="dashboard-container">
@@ -80,8 +81,8 @@ export default function Dashboard() {
                                             <strong>Артикул:</strong> {product.product.Артикул} <br />
                                             <strong>Количество:</strong> {product.count} <br />
                                             <strong>Производитель:</strong> {product.product.Производитель} <br />
-                                            <strong>Оптовая цена:</strong> {product.product.ОПТ} <br />
-                                            <strong>Розничная цена:</strong> {product.product.РОЗНИЦА} <br />
+                                            {user.userInfo.wholesale ?<>   <strong>Оптовая цена:</strong> {product.product.ОПТ} <br /></> : <>  <strong>Розничная цена:</strong> {product.product.РОЗНИЦА} <br /></>}
+                            
                                         </li>
                                     ))}
                                 </ul>

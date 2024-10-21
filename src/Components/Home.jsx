@@ -10,7 +10,7 @@ export default function Home(){
     const user = useSelector(state => state.user)
 
     return(
-        <div className="container">
+        <div className="">
             <div className="header-title">
                  {/* <h1 className="title" >Магазин запчастей для рефрижераторов</h1> */}
             </div>
@@ -40,9 +40,10 @@ export default function Home(){
                         </div>
                     </div>
                 </div>
-                <Title text='Отзывы' />
+
+                <Title text='Как заказать товар' />
                 <div className="feedback">
-                    <div className="feedback-card">
+                    {/* <div className="feedback-card">
                         <div className="feedback-photo">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Ivan_Petrov-.jpg" alt="User 1" />
                         </div>
@@ -68,8 +69,8 @@ export default function Home(){
                             <p>"Профессиональный подход и отличная поддержка."</p>
                             <span>- Сергей Николаевич</span>
                         </div>
-                    </div>
-                    <footer className="footer">
+                    </div> */}
+                <footer className="footer">
                 <div className="waves">
                     <div className="wave" id="wave1"></div>
                     <div className="wave" id="wave2"></div>
