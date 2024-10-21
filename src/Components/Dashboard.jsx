@@ -14,7 +14,7 @@ export default function Dashboard() {
     const dispatch = useDispatch()
     // Fetch order history
     useEffect(() => {
-        axios.get(`http://localhost:4444/user/${user.userInfo.username}/order-history`)
+        axios.get(`http://62.217.181.247:4445/user/${user.userInfo.username}/order-history`)
             .then(res => {
                 setHistoryOrder(res.data);
                 setIsLoading(false);
@@ -37,7 +37,7 @@ export default function Dashboard() {
 
     const updateUserData = (updatedData) => {
         const { username, email, phone } = updatedData;
-        axios.put(`http://localhost:4444/user/${user.userInfo.username}/update`, {
+        axios.put(`http://62.217.181.247:4445/user/${user.userInfo.username}/update`, {
             newUsername: username, 
             email,
             phone,

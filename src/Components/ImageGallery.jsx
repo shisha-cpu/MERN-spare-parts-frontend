@@ -22,7 +22,7 @@ const ImageGallery = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:4444/data')
+    axios.get('http://62.217.181.247:4445/data')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
@@ -85,7 +85,7 @@ const ImageGallery = () => {
       });
 
       try {
-        const response = await axios.post('http://localhost:4444/add-to-basket', {
+        const response = await axios.post('http://62.217.181.247:4445/add-to-basket', {
           product: item,
           username: user.userInfo.username,
           count: count,

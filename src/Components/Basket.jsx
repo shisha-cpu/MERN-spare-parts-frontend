@@ -61,7 +61,7 @@ export default function Basket() {
     
     const handleOrder = async () => {
           console.log(user.userInfo.email);
-          axios.post('http://localhost:4444/get-order', { email: user.userInfo.email })
+          axios.post('http://62.217.181.247:4445/get-order', { email: user.userInfo.email })
         .then(res => console.log(res.data)
         )
         .catch(err=>(console.log(err)
@@ -84,7 +84,7 @@ export default function Basket() {
                         `\nИтог: ${totalOrderSum} рублей`;
     
         try {
-            const response = await fetch('http://localhost:4444/api/send-order', {
+            const response = await fetch('http://62.217.181.247:4445/api/send-order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -131,7 +131,7 @@ export default function Basket() {
     
     const handleDelete = async (index) => {
         try {
-            await axios.delete(`http://localhost:4444/${user.userInfo.username}/basket/${index}`);
+            await axios.delete(`http://62.217.181.247:4445/${user.userInfo.username}/basket/${index}`);
             setBasket(basket.filter((_, i) => i !== index));
         } catch (error) {
             console.log(error);
