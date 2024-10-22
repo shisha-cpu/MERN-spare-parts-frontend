@@ -18,7 +18,7 @@ export default function Home(){
             <div className="home-content">
                <div className="home-btn">
                    <Link to='/catalog'>
-                     <Button text='Перейти в каталог' />
+                     <Button text='Товары и цены ' />
                    </Link>
                </div>
              

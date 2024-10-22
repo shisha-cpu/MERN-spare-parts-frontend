@@ -47,14 +47,7 @@ export default function Header() {
                 <div className="bar"></div>
             </div>
             <nav className={`navigation ${menuOpen ? 'open' : ''}`}>
-                <div className="merge">
-                    <ul>
-                        <li><Link to='/' onClick={closeMenu}>Главная</Link></li>
-                        <li><Link to='/catalog' onClick={closeMenu}>Каталог</Link></li>
-                        <li><Link to='/about' onClick={closeMenu}>О нас</Link></li>
-                        <li><Link to='/contact' onClick={closeMenu}>Контакты</Link></li>
-                    </ul>
-                </div>
+       
                 <div className="contact-links">
                     <p>
                     <a href="tel:+79515515625">+79515515625</a> <br />
@@ -62,6 +55,12 @@ export default function Header() {
                      <a href="https://t.me/Refvrn">Telegram</a>
                     </p>
                 </div>
+                <ul>
+                        <li><Link to='/' onClick={closeMenu}>Главная</Link></li>
+                        <li><Link to='/catalog' onClick={closeMenu}>Каталог</Link></li>
+                        <li><Link to='/about' onClick={closeMenu}>О нас</Link></li>
+                        <li><Link to='/contact' onClick={closeMenu}>Контакты</Link></li>
+                    </ul>
                 <ul>
                     {!user.isLoggin ? (
                         <>

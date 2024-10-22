@@ -154,7 +154,7 @@ const ImageGallery = () => {
           className="scroll-to-top"
           onClick={handleScrollToTop}
         >
-          ↑ Наверх
+          ↑ 
         </button>
       )}
     </div>

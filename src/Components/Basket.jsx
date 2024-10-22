@@ -176,9 +176,9 @@ export default function Basket() {
                                         <button onClick={() => updateCount(index, item.count > 1 ? item.count - 1 : 1)}>-</button>
                                         <input
                                             type="number"
-                                            value={item.count}
+                                            value={item.count  == 0 ? '' : item.count }
                                             min="1"
-                                            onChange={(e) => updateCount(index, Math.max(1, Number(e.target.value)))}
+                                            onChange={(e) => updateCount(index, Math.max(0, Number(e.target.value)))}
                                         />
                                         <button onClick={() => updateCount(index, item.count + 1)}>+</button>
                                     </div>
