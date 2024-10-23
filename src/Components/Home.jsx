@@ -21,27 +21,45 @@ export default function Home(){
                      <Button text='Товары и цены ' />
                    </Link>
                </div>
-             
+               <div className="header-title1">
+                 {/* <h1 className="title" >Магазин запчастей для рефрижераторов</h1> */}
+            </div>
+            <div className="home-btn">
+                            <Link to='/about'>
+                                <Button text='Узнать больше' />
+                            </Link>
+                        </div>
+       
                <div className="cards-container">
                     <Title text='Наши приемущества' />
                     <Profit  />
                 </div>
-                <Title  text='О нас ' />
+                <div className="header-title2">
+                 {/* <h1 className="title" >Магазин запчастей для рефрижераторов</h1> */}
+            </div>
+                {/* <Title  text='О нас ' />
                 <div className="about-block">
                     <div className="about-photo">
                         <img src="../../public/фотосклада .jpg" alt="About us" />
                     </div>
                     <div className="about-content">
                         <p>Мы специализируемся на предоставлении качественных запчастей для рефрижераторов  Thermo king & Carrier. Наша команда обладает многолетним опытом и всегда готова помочь вам с выбором необходимых деталей.</p>
-                        <div className="home-btn">
-                            <Link to='/about'>
-                                <Button text='Узнать больше' />
-                            </Link>
-                        </div>
+         
                     </div>
+                </div> */}
+
+                    <div className="casas" >
+                    Если у Вас возникли трудности с подбором запчастей или с заказом, <br />
+Вы всегда можете связаться с нами
+<div className="contact-links">
+                    <p>
+                    <a href="tel:+79515515625">+79515515625</a> <br />
+                <a href="https://wa.me/+79515515625">WhatsApp</a><br/>
+                     <a href="https://t.me/Refvrn">Telegram</a>
+                    </p>
                 </div>
 
-                <Title text='Как заказать товар' />
+                    </div>
                 <div className="feedback">
                     {/* <div className="feedback-card">
                         <div className="feedback-photo">
