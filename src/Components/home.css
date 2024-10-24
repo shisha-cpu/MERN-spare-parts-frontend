@@ -95,7 +95,7 @@
     margin-bottom: 20px;
   }
   .header-title2 {
-    background: url('./8b4c223d-2404-4494-94e4-4d294ec6e8ee.jfif');
+    background: url('./235635d8-08e5-4919-8d8f-d3596d03958f.jfif');
     width: 55vw; 
     height: 60vh;
     position: relative;
@@ -158,6 +158,14 @@
         width: 50vw;
         height: 40vh;
     }
+    .header-title1 {
+      width: 50vw;
+      height: 40vh;
+  }
+  .header-title2 {
+    width: 50vw;
+    height: 40vh;
+}
 }
 
 @media (min-width: 480px) and (max-width: 768px) {
@@ -166,6 +174,15 @@
         width: 85vw;
         height: 45vh;
     }
+    .header-title1 {
+      font-size: 5vw;
+      width: 100vw;
+      height: 45vh;
+  }
+  .header-title2 {
+    width: 50vw;
+    height: 40vh;
+}
 }
 
 
@@ -175,8 +192,16 @@
         width: 90vw;
         height: 40vh;
     }
-
-
+    .header-title1 {
+      font-size: 5vw;
+      width: 90vw;
+      height: 50vh;
+  }  
+  .header-title2 {
+    font-size: 5vw;
+    width: 90vw;
+    height: 70vh;
+}  
 }
 
 .container-card1{
