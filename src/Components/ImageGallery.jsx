@@ -143,7 +143,7 @@ const ImageGallery = () => {
                 </div>
               </div>
               {user.userInfo.username && 
-                <Button text='Добавить в корзину' func={() => handleSubmit(item)} />
+                <Button text='Добавить ' func={() => handleSubmit(item)} />
               }
             </div>
           </div>

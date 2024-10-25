@@ -95,8 +95,8 @@ export default function Basket() {
                 await sendTelegramMessage(message);
                 setModal({
                     isOpen: true,
-                    title: 'Успех',
-                    message: 'Ваш заказ был успешно отправлен!',
+                    title: 'Ваш заказ успешно отправлен!',
+                    message: 'Ожидайте звонка менеджера',
                 });
 
                 setBasket([]);
