@@ -202,10 +202,17 @@ h3 {
         border: 1px solid black;
         font-size: 16px;
         height: 40px;
-      
     }
 
     .delete-button{
         max-width: 80px;
+    }
+}
+@media (max-width : 376px) {
+    .quantity-input {
+        max-width: 26px;
+        border: 1px solid black;
+        font-size: 14px;
+        height: 40px;
     }
 }
