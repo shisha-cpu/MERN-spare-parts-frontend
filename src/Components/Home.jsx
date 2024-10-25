@@ -52,7 +52,7 @@ export default function Home(){
                     Если у Вас возникли трудности с подбором запчастей или с заказом, <br />
 Вы всегда можете связаться с нами
 <div className="contact-links">
-                    <p>
+                    <p style={{marginTop : '15px'}}>
                     <a href="tel:+79515515625">+79515515625</a> <br />
                 <a href="https://wa.me/+79515515625">WhatsApp</a><br/>
                      <a href="https://t.me/Refvrn">Telegram</a>

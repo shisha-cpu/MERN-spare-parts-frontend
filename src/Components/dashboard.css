@@ -16,10 +16,16 @@
     color: white;
     background-color: #555;
     cursor: pointer;
-    padding: 5px;
+
    border-radius: 20px;
    margin: 0 10px;
-
+    width: 23px;
+   padding-top: 5px;
+    height: 40px;
+}
+.minus{
+    font-size: 29px !important;
+    height: 38px !important;
 }
 .dashboard-header {
     text-align: center;
@@ -165,18 +171,41 @@ h3 {
 .auth-btn:hover {
   
 }
-
+.quantity-input {
+    max-width: 60px;
+    border: 1px solid black;
+    font-size: 16px;
+    height: 40px;
+}
+.quantity-section{
+    /* background-color: #007bff; */
+    display: flex;
+    margin-top: -5px;
+}
 .message {
-    color: red; /* Message color for errors or notifications */
+    color: red;
     text-align: center;
     margin-bottom: 15px;
 }
+.input-container{
+    display: flex;
+
+}
+
 @media (max-width: 600px) {
-
-
-    .quantity-container input {
-        width: 80%; 
+    .total-txt{
+        margin-bottom: 15px;
     }
 
- 
+    .quantity-input {
+        max-width: 37px;
+        border: 1px solid black;
+        font-size: 16px;
+        height: 40px;
+      
+    }
+
+    .delete-button{
+        max-width: 80px;
+    }
 }

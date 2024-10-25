@@ -173,21 +173,27 @@ export default function Basket() {
                                     <p>Артикул: {article}</p>
                                     {user.userInfo.wholesale ? <p>Цена: {item.product.ОПТ}</p> : <p>Цена: {retailPrice}</p>}
                                     <div className="quantity-container">
-                                        <button onClick={() => updateCount(index, item.count > 1 ? item.count - 1 : 1)}>-</button>
+                                        <p>Количество : </p>
+                                        <div className="quantity-section">
+                                        <button className="minus" onClick={() => updateCount(index, item.count > 1 ? item.count - 1 : 1)}>- </button>
+                                        <div className="input-container">
                                         <input
+                                            className="quantity-input"
                                             type="number"
                                             value={item.count  == 0 ? '' : item.count }
                                             min="1"
                                             onChange={(e) => updateCount(index, Math.max(0, Number(e.target.value)))}
                                         />
+                                        </div>
                                         <button onClick={() => updateCount(index, item.count + 1)}>+</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <button className="delete-button" onClick={() => handleDelete(index)}>Удалить</button>
                             </div>
                         );
                     })}
-                    <h3>Итог: {totalPrice} рублей</h3>
+                    <h3 className="total-txt">Итог: {totalPrice} рублей</h3>
                     <Button text='Заказать' func={handleOrder} />
                 </div>
             )}

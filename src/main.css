@@ -1,13 +1,12 @@
-@import url(https://db.onlinewebfonts.com/c/b080d88aa69a197c87d4dd471988f25e?family=Zekton);
 @font-face {
-    font-family: "Zekton";
-    src: url("https://db.onlinewebfonts.com/t/b080d88aa69a197c87d4dd471988f25e.eot");
-    src: url("https://db.onlinewebfonts.com/t/b080d88aa69a197c87d4dd471988f25e.eot?#iefix")format("embedded-opentype"),
-    url("https://db.onlinewebfonts.com/t/b080d88aa69a197c87d4dd471988f25e.woff2")format("woff2"),
-    url("https://db.onlinewebfonts.com/t/b080d88aa69a197c87d4dd471988f25e.woff")format("woff"),
-    url("https://db.onlinewebfonts.com/t/b080d88aa69a197c87d4dd471988f25e.ttf")format("truetype"),
-    url("https://db.onlinewebfonts.com/t/b080d88aa69a197c87d4dd471988f25e.svg#Zekton")format("svg");
-}
-body{
+    font-family: 'Zekton';
+    src: url('./fonts/ofont.ru_Zekton.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  body {
+    font-family: 'Zekton', sans-serif;
     background: url('./carbon-fibre.png');
-}
+  }
+  
