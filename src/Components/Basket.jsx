@@ -34,7 +34,7 @@ export default function Basket() {
 
     useEffect(() => {
         if (user.userInfo.username) {
-            axios.get(`http://62.217.181.247:4445/user/${user.userInfo.username}/basket`)
+            axios.get(`http://90.156.169.196:4445/user/${user.userInfo.username}/basket`)
                 .then(res => {
                     setBasket(res.data);
                 })
@@ -55,7 +55,7 @@ export default function Basket() {
 
     const handleOrder = async () => {
         console.log(user.userInfo.email);
-        axios.post('http://62.217.181.247:4445/get-order', { email: user.userInfo.email })
+        axios.post('http://90.156.169.196:4445/get-order', { email: user.userInfo.email })
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
 
@@ -76,7 +76,7 @@ export default function Basket() {
                         `\nИтог: ${totalOrderSum} рублей`;
 
         try {
-            const response = await fetch('http://62.217.181.247:4445/api/send-order', {
+            const response = await fetch('http://90.156.169.196:4445/api/send-order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -120,7 +120,7 @@ export default function Basket() {
 
     const handleDelete = async (index) => {
         try {
-            await axios.delete(`http://62.217.181.247:4445/${user.userInfo.username}/basket/${index}`);
+            await axios.delete(`http://90.156.169.196:4445/${user.userInfo.username}/basket/${index}`);
             setBasket(basket.filter((_, i) => i !== index));
         } catch (error) {
             console.log(error);
@@ -139,7 +139,7 @@ export default function Basket() {
         setBasket(updatedBasket);
 
         try {
-            await axios.put(`http://62.217.181.247:4445/${user.userInfo.username}/basket/${index}`, {
+            await axios.put(`http://90.156.169.196:4445/${user.userInfo.username}/basket/${index}`, {
                 count: newCount,
             });
         } catch (error) {
