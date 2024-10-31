@@ -22,7 +22,7 @@ const ImageGallery = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://62.217.181.247:4445/data')
+    axios.get('https://refvrn.ru:4446/data')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);

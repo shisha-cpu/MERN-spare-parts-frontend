@@ -24,7 +24,7 @@ const Register = () => {
         }
 
         try {
-          await axios.post('http://62.217.181.247:4445/register' , {
+          await axios.post('http://localhost:4445/register' , {
             username,
             email,
             password, 
