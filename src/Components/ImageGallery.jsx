@@ -22,7 +22,7 @@ const ImageGallery = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://90.156.169.196:4445/data')
+    axios.get('https://refvrn.ru:4446/data')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
@@ -85,7 +85,7 @@ const ImageGallery = () => {
       });
 
       try {
-        const response = await axios.post('http://90.156.169.196:4445/add-to-basket', {
+        const response = await axios.post('https://refvrn.ru:4446/add-to-basket', {
           product: item,
           username: user.userInfo.username,
           count: count,
