@@ -34,9 +34,13 @@ const Register = () => {
           .then(response=>{
 
             console.log('Server response:', response.data);
+            console.log('msg - ' , response.data.message);
+            
             setMessage(response.data.message);
 
-            if (response.data.message === 'User registered successfully') {
+            if (response.data.message == 'Пользователь успешно зарегистрирован') {
+                console.log(true);
+                
                 const basket = [];
                 dispatch(setUser({ username, email, wholesale: false, basket, phone }));
                 setRedirect(true);

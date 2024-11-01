@@ -76,20 +76,19 @@ export default function Basket() {
                         `\nИтог: ${totalOrderSum} рублей`;
 
         try {
-            const response = await fetch('https://refvrn.ru:4446/api/send-order', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: user.userInfo.username,
-                    phone: user.userInfo.phone,
-                    email: user.userInfo.email,
-                    orderDetails,
-                    totalOrderSum
-                })
-            });
-
+          await axios.post('https://refvrn.ru:4446/api/send-order', {
+                username: user.userInfo.username,
+                phone: user.userInfo.phone,
+                email: user.userInfo.email,
+                orderDetails,
+                totalOrderSum
+            },
+            )
+            .then(res => console.log(res))
+            .catch(err =>console.log(err)
+            )
+            
+            
             const data = await response.json();
             if (data.success) {
                 await sendTelegramMessage(message);
