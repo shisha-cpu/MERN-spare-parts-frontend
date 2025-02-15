@@ -118,3 +118,10 @@
 .modal-buttons button:hover {
     opacity: 0.9;
 }
+
+.accept-modal-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    font-size: 15px;
+}

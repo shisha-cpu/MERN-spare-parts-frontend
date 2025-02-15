@@ -24,45 +24,36 @@ const Register = () => {
         }
 
         try {
-          await axios.post('https://refvrn.ru:4446/register' , {
-            username,
-            email,
-            password, 
-            wholesale: false,
-            phone
-        }) 
-          .then(response=>{
+            const response = await axios.post('https://refvrn.ru:4446/register', {
+                username,
+                email,
+                password,
+                wholesale: false,
+                phone
+            });
 
             console.log('Server response:', response.data);
-            console.log('msg - ' , response.data.message);
-            
-            setMessage(response.data.message);
+            console.log('msg -', response.data.message);
 
-            if (response.data.message == 'Пользователь успешно зарегистрирован') {
-                console.log(true);
-                
+            if (200=== 200) {
                 const basket = [];
                 dispatch(setUser({ username, email, wholesale: false, basket, phone }));
                 setRedirect(true);
-              
             }
 
-          })
-         
-          const message = `
-          Новый пользователь: ${username}
-          Телефон: ${phone}
-          Почта: ${email}
-        `;
+            const notificationMessage = `
+                Новый пользователь: ${username}
+                Телефон: ${phone}
+                Почта: ${email}
+            `;
 
             const botToken = '6905722948:AAFcLUxKVCJ1tIF03S8l2xLbjo50buyYYoU';
             const chatId = '1137493485';
-      
+//736009389
             await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 chat_id: chatId,
-                text: message,
+                text: notificationMessage,
             });
-      
 
         } catch (error) {
             console.error('Registration error:', error);
@@ -122,7 +113,7 @@ const Register = () => {
                 <div className="form-group">
                     <label>Телефон:</label>
                     <input
-                        type='tel'
+                        type="tel"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         required

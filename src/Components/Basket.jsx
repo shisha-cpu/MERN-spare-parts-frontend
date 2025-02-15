@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 import Button from "./elements/Button";
 import Modal from "./Modal.jsx";
 import './dashboard.css';
-
+import './basket.css';
+import RegisterModal from "./RegisterModal.jsx";
 const botToken = '6905722948:AAFcLUxKVCJ1tIF03S8l2xLbjo50buyYYoU';
 const chatId = '1137493485';
 
@@ -23,28 +24,22 @@ const sendTelegramMessage = async (message) => {
 export default function Basket() {
     const [basket, setBasket] = useState([]);
     const [modal, setModal] = useState({ isOpen: false, title: '', message: '' });
+    const [registerModalOpen, setRegisterModalOpen] = useState(false); // Add state for RegisterModal
     const user = useSelector(state => state.user);
 
     useEffect(() => {
-        const savedBasket = localStorage.getItem('basket');
-        if (savedBasket) {
-            setBasket(JSON.parse(savedBasket));
-        }
-    }, []);
-
-    useEffect(() => {
         if (user.userInfo.username) {
-            axios.get(`https://refvrn.ru:4446/user/${user.userInfo.username}/basket`)
-                .then(res => {
-                    setBasket(res.data);
-                })
-                .catch(err => console.log(err));
+          axios.get(`https://refvrn.ru:4446/user/${user.userInfo.username}/basket`)
+            .then(res => {
+              setBasket(res.data);
+            })
+            .catch(err => console.log(err));
+        } else {
+          const storedBasket = JSON.parse(localStorage.getItem('basket')) || [];
+          setBasket(storedBasket);
+          console.log(storedBasket);
         }
-    }, [user.userInfo.username]);
-
-    useEffect(() => {
-        localStorage.setItem('basket', JSON.stringify(basket));
-    }, [basket]);
+      }, [user.userInfo.username]);  
 
     const totalPrice = useMemo(() => {
         return basket.reduce((sum, item) => {
@@ -54,19 +49,25 @@ export default function Basket() {
     }, [basket, user.userInfo.wholesale]);
 
     const handleOrder = async () => {
-        console.log(user.userInfo.email);
+        if (!user.userInfo.username) {
+            setRegisterModalOpen(true); // Open RegisterModal if not logged in
+            return;
+        }
         axios.post('https://refvrn.ru:4446/get-order', { email: user.userInfo.email })
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
 
-        const orderDetails = basket.map(item => ({
-            article: item.product?.Артикул || "не указан",
-            name: item.product?.Наименование_заказа || "не указано",
-            count: item.count,
-            price: item.product?.РОЗНИЦА || 0,
-            total: (item.product?.РОЗНИЦА || 0) * item.count
-        }));
-
+            const orderDetails = basket.map(item => {
+                const price = user.userInfo.wholesale ? item.product?.ОПТ : item.product?.РОЗНИЦА;
+                return {
+                    article: item.product?.Артикул || "не указан",
+                    name: item.product?.Наименование_заказа || "не указано",
+                    count: item.count,
+                    price: price || 0, 
+                    total: (price || 0) * item.count 
+                };
+            });
+            
         const totalOrderSum = totalPrice;
 
         const message = `Заказ от пользователя: ${user.userInfo.username}\n` +
@@ -75,46 +76,42 @@ export default function Basket() {
                         `Товары:\n` + orderDetails.map(item => `${item.name}`).join('\n') +
                         `\nИтог: ${totalOrderSum} рублей`;
 
-        try {
-          await axios.post('https://refvrn.ru:4446/api/send-order', {
-                username: user.userInfo.username,
-                phone: user.userInfo.phone,
-                email: user.userInfo.email,
-                orderDetails,
-                totalOrderSum
-            },
-            )
-            .then(res => console.log(res))
-            .catch(err =>console.log(err)
-            )
-            
-            
-            const data = await response.json();
-            if (data.success) {
-                await sendTelegramMessage(message);
-                setModal({
-                    isOpen: true,
-                    title: 'Ваш заказ успешно отправлен!',
-                    message: 'Ожидайте звонка менеджера',
-                });
+                        try {
+                            const res = await axios.post('https://refvrn.ru:4446/api/send-order', {
+                                username: user.userInfo.username,
+                                phone: user.userInfo.phone,
+                                email: user.userInfo.email,
+                                orderDetails,
+                                totalOrderSum
+                            });
+                        
+                            const data = res.data; // Здесь используется res.data вместо response.json()
+                            
 
-                setBasket([]);
-                localStorage.removeItem('basket');
-            } else {
-                setModal({
-                    isOpen: true,
-                    title: 'Ошибка',
-                    message: 'Ошибка при отправке заказа',
-                });
-            }
-        } catch (error) {
-            console.log(error);
-            setModal({
-                isOpen: true,
-                title: 'Ошибка',
-                message: 'Ошибка при отправке заказа',
-            });
-        }
+                            if (data.success) {
+                                await sendTelegramMessage(message);
+                                setModal({
+                                    isOpen: true,
+                                    title: 'Ваш заказ успешно отправлен!',
+                                    message: 'Ожидайте звонка менеджера',
+                                });
+                                setBasket([]);
+                                localStorage.removeItem('basket');
+                            } else {
+                                setModal({
+                                    isOpen: true,
+                                    title: 'Ошибка при отправке заказа',
+                                    message: 'Попробуйте снова позже.',
+                                });
+                            }
+                        } catch (error) {
+                            console.log(error);
+                            setModal({
+                                isOpen: true,
+                                title: 'Ошибка при отправке заказа',
+                                message: 'Попробуйте снова позже.',
+                            });
+                        }
     };
 
     const handleDelete = async (index) => {
@@ -147,8 +144,8 @@ export default function Basket() {
     };
 
     return (
-        <div className="dashboard-container">
-            <h1 className="dashboard-header">Корзина пользователя: {user.userInfo.username}</h1>
+        <div className="basket-container basket">
+            <h1 className="basket-header">Корзина </h1>
             {basket.length === 0 ? (
                 <h3>Для заказа нужно добавить товары в корзину</h3>
             ) : (
@@ -164,27 +161,33 @@ export default function Basket() {
                         return (
                             <div key={index} className="basket-item">
                                 <div className="basket-content">
-                                    <div className="basket-item-header">
+                                    {/* <div className="basket-item-header">
                                         <p>{productName}</p>
-                                    </div>
-                                    <p>Каталог: {catalog}</p>
+                                    </div> */}
+            
+                                    <p className="basket-artic">Артикул: <span ><strong>{article}</strong></span> </p>
+                                    <p>Наименание : {productName} </p>
+                      
                                     <p>Производитель: {manufacturer}</p>
-                                    <p>Артикул: {article}</p>
-                                    {user.userInfo.wholesale ? <p>Цена: {item.product.ОПТ}</p> : <p>Цена: {retailPrice}</p>}
+                                    {user.userInfo.wholesale ? <p>Цена: <span><strong>{item.product.ОПТ} ₽</strong></span>  </p> : <p>Цена:  <span ><strong>{retailPrice}₽</strong></span></p>}
+                                    {/* <p>Каталог: {catalog}</p> */}
+                            
+                               
+                          
                                     <div className="quantity-container">
                                         <p>Количество : </p>
                                         <div className="quantity-section">
-                                        <button className="minus" onClick={() => updateCount(index, item.count > 1 ? item.count - 1 : 1)}>- </button>
-                                        <div className="input-container">
-                                        <input
-                                            className="quantity-input"
-                                            type="number"
-                                            value={item.count  == 0 ? '' : item.count }
-                                            min="1"
-                                            onChange={(e) => updateCount(index, Math.max(0, Number(e.target.value)))}
-                                        />
-                                        </div>
-                                        <button onClick={() => updateCount(index, item.count + 1)}>+</button>
+                                            <button className="minus" onClick={() => updateCount(index, item.count > 1 ? item.count - 1 : 1)}>- </button>
+                                            <div className="input-container">
+                                                <input
+                                                    className="quantity-input"
+                                                    type="number"
+                                                    value={item.count  == 0 ? '' : item.count }
+                                                    min="1"
+                                                    onChange={(e) => updateCount(index, Math.max(0, Number(e.target.value)))}
+                                                />
+                                            </div>
+                                            <button onClick={() => updateCount(index, item.count + 1)}>+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -192,16 +195,21 @@ export default function Basket() {
                             </div>
                         );
                     })}
-                    <h3 className="total-txt">Итог: {totalPrice} рублей</h3>
+                    <h3 className="basket-total-txt">Итог: {totalPrice} рублей</h3>
                     <Button text='Заказать' func={handleOrder} />
                 </div>
             )}
             <Modal
                 isOpen={modal.isOpen}
-                onClose={() => setModal({ ...modal, isOpen: false })}
+                onClose={() => {
+                    setModal({ ...modal, isOpen: false });
+                    window.location.reload();
+                    return false;
+                }}
                 title={modal.title}
                 message={modal.message}
             />
+            <RegisterModal isOpen={registerModalOpen} onClose={() => setRegisterModalOpen(false)} /> {/* Add RegisterModal component */}
         </div>
     );
 }

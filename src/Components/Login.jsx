@@ -22,7 +22,7 @@ const Login = () => {
                 password,
             });
     
-            console.log(response.data);
+            console.log(response.data.user);
     
             // Destructure all relevant properties from the response
             const { 
@@ -32,9 +32,9 @@ const Login = () => {
                 createdAt, 
                 basket, 
                 orderHistory 
-            } = response.data;
+            } = response.data.user;
     
-            // Dispatch the setUser action with all necessary user data
+        
             dispatch(setUser({ 
                 email, 
                 username, 

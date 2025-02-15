@@ -3,12 +3,29 @@ import './header.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUser } from '../store/slices/userSlice';
+import { setBasket } from '../store/slices/basketSlice'; // Импортируйте действие
+import axios from 'axios';
 
 export default function Header() {
-    const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
-    const [menuOpen, setMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+  const basket = useSelector(state => state.basket.items);; // Получаем корзину из Redux
+  const [menuOpen, setMenuOpen] = useState(false);
 
+  useEffect(() => {
+    if (user.userInfo.username) {
+      // Для зарегистрированных пользователей
+      axios.get(`https://refvrn.ru:4446/user/${user.userInfo.username}/basket`)
+        .then(res => {
+          dispatch(setBasket(res.data)); // Обновляем корзину в Redux
+        })
+        .catch(err => console.log(err));
+    } else {
+      // Для незарегистрированных пользователей
+      const storedBasket = JSON.parse(localStorage.getItem('basket')) || [];
+      dispatch(setBasket(storedBasket)); // Обновляем корзину в Redux
+    }
+  }, [user.userInfo.username, dispatch]);  
     useEffect(() => {
         const handleScroll = () => {
             const header = document.querySelector('.header');
@@ -64,12 +81,14 @@ export default function Header() {
                 <ul>
                     {!user.isLoggin ? (
                         <>
+                            <li><Link to='/basket' onClick={closeMenu}>Корзина ({ basket.length})</Link></li>
                             <li><Link to='/register' onClick={closeMenu}>Регистрация</Link></li>
                             <li><Link to='/login' onClick={closeMenu}>Вход</Link></li>
+    
                         </>
                     ) : (
                         <>
-                            <li><Link to='/basket' onClick={closeMenu}>Корзина</Link></li>
+                      <li><Link to='/basket' onClick={closeMenu}>Корзина ({ basket.length})</Link></li>
                             <li><Link to='/dashboard' onClick={closeMenu}>Личный кабинет</Link></li>
                             <li><button onClick={handleLogout}>Выйти</button></li>
                         </>

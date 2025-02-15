@@ -26,44 +26,14 @@
    padding-top: 5px;
     height: 40px;
 }
-.minus{
-    font-size: 29px !important;
-    height: 38px !important;
-}
+
 .dashboard-header {
     text-align: center;
     font-size: 2em;
     margin-bottom: 20px;
 }
 
-.user-basket {
-    margin-top: 20px;
-}
 
-.basket-item {
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.basket-item-header {
-    font-weight: bold;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.basket-item p {
-    margin: 5px 0;
-}
-
-.basket-content {
-    flex-grow: 1;
-}
 
 .delete-button {
     background-color: #e74c3c;
